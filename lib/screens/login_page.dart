@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../components/login_text_field.dart';
-import '../components/privacy_policy_label.dart';
-import '../stores/form_store/form_store.dart';
+import '../components/general/background_box_decoration.dart';
+import '../components/login/login_text_field.dart';
+import '../components/general/privacy_policy_label.dart';
+import '../constants/login/login.error.dart';
+import '../constants/login/login.string.dart';
+import '../stores/login_store/login_store.dart';
 import 'dashboard_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -15,7 +18,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final formStore = FormStore();
+  final loginStore = LoginStore();
 
   @override
   Widget build(BuildContext context) {
@@ -27,13 +30,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
           child: IntrinsicHeight(
             child: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [Color(0xFF00796B), Color(0xFFB2DFDB)],
-                ),
-              ),
+              decoration: backgroundBoxDecoration(),
               child: Form(
                 child: Padding(
                   padding: const EdgeInsets.all(24.0),
@@ -42,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       const SizedBox(height: 30.0),
                       const Text(
-                        'Project Target',
+                        stringTitle,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 24.0,
@@ -50,15 +47,15 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       LoginTextField(
-                        labelText: "Usuário",
-                        initialValue: formStore.username,
-                        onChanged: formStore.setUsername,
+                        labelText: stringLabelTextUser,
+                        initialValue: loginStore.username,
+                        onChanged: loginStore.setUsername,
                         icon: Icons.person,
                       ),
                       LoginTextField(
-                        labelText: "Senha",
-                        initialValue: formStore.password,
-                        onChanged: formStore.setPassword,
+                        labelText: stringLabelTextPassword,
+                        initialValue: loginStore.password,
+                        onChanged: loginStore.setPassword,
                         obscureText: true,
                         icon: Icons.lock,
                       ),
@@ -67,9 +64,9 @@ class _LoginPageState extends State<LoginPage> {
                         builder: (_) => Container(
                           width: 150,
                           child: ElevatedButton(
-                            onPressed: formStore.isValid
+                            onPressed: loginStore.isValid
                                 ? () async {
-                                    final result = await formStore.login();
+                                    final result = await loginStore.login();
                                     handleLoginResult(context, result);
                                   }
                                 : null,
@@ -85,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                             child: const Text(
-                              "Entrar",
+                              stringButton,
                               style: TextStyle(color: Colors.white),
                             ),
                           ),
@@ -116,7 +113,7 @@ class _LoginPageState extends State<LoginPage> {
         break;
       case LoginResult.invalidUser:
         Fluttertoast.showToast(
-            msg: "Usuário Inválido",
+            msg: errorToastInvalidUser,
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -126,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
         break;
       case LoginResult.invalidPassword:
         Fluttertoast.showToast(
-            msg: "Senha Inválida",
+            msg: errorToastInvalidPassword,
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
