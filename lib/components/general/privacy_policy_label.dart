@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../constants/general/general.string.dart';
+
 class PrivacyPolicyLabel extends StatelessWidget {
-  const PrivacyPolicyLabel({Key? key}) : super(key: key);
+  final bool isActive;
+
+  const PrivacyPolicyLabel({Key? key, this.isActive = true}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.bottomCenter,
       child: GestureDetector(
-        onTap: _launchURL,
+        onTap: () {
+          if (isActive) _launchURL();
+        },
         child: const Padding(
           padding: EdgeInsets.only(bottom: 10.0),
           child: Text(
-            'Política de Privacidade',
+            stringPrivacyPolicyLabel,
             style: TextStyle(
               color: Colors.white,
               decoration: TextDecoration.none,
@@ -25,7 +31,7 @@ class PrivacyPolicyLabel extends StatelessWidget {
   }
 
   void _launchURL() async {
-    final Uri url = Uri.parse('https://www.google.com.br');
+    final Uri url = Uri.parse(stringPrivacyPolicyUrl);
     if (await canLaunchUrl(url)) {
       await launchUrl(
         url,
