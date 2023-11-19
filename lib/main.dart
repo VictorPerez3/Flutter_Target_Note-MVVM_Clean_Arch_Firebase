@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_target/screens/login_page.dart';
-
 import 'constants/general/general.string.dart';
 
 void main() {
