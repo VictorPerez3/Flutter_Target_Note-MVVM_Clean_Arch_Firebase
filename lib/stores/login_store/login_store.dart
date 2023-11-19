@@ -1,8 +1,8 @@
 import 'package:mobx/mobx.dart';
 
-part 'form_store.g.dart';
+part 'login_store.g.dart';
 
-class FormStore = _FormStore with _$FormStore;
+class LoginStore = _LoginStore with _$LoginStore;
 
 enum LoginResult {
   success,
@@ -10,32 +10,13 @@ enum LoginResult {
   invalidPassword,
 }
 
-abstract class _FormStore with Store {
-  //////////////////////////////////////////
-  /*@observable
+abstract class _LoginStore with Store {
+
+  @observable
   String username = '';
 
   @observable
-  String password = '';*/
-  /////////////////////////////////////////
-
-  @observable
-  String username = 'teste2';
-
-  @observable
-  String password = 'teste2';
-
-  _FormStore() {
-    autorun((_) {
-      print('AUTORUN: O formulário é válido? $isValid.');
-    });
-    reaction((_) => isValid, (_) {
-      print('REACTION: O formulário é válido? $isValid.');
-    });
-    when((_) => isValid, () {
-      print('WHEN: O formulário é válido? $isValid.');
-    });
-  }
+  String password = '';
 
   @action
   void setUsername(String value) {
