@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import '../../constants/dashboard/dashboard.string.dart';
 import '../../stores/dashboard_store/dashboard_store.dart';
 
 enum IconButtonAction {
@@ -26,6 +28,17 @@ class DashboardIconButton extends StatelessWidget {
     required this.iconButtonAction,
   }) : super(key: key);
 
+  void removeToast() {
+    Fluttertoast.showToast(
+        msg: stringToastRemoveItem,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
+  }
+
   @override
   Widget build(BuildContext context) {
     return IconButton(
@@ -40,6 +53,7 @@ class DashboardIconButton extends StatelessWidget {
               break;
             case IconButtonAction.delete:
               store.removeItem(item.id);
+              removeToast();
               break;
           }
         }
