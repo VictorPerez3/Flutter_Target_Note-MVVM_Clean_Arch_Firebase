@@ -77,7 +77,6 @@ abstract class _DashboardStore with Store {
         Item(id: 1, text: "cachorro"),
         Item(id: 2, text: "gato"),
       ]);
-      await _saveItems(); // Salvar os dados padrões localmente
     }
   }
 
