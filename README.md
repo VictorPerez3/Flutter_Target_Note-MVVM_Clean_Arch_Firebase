@@ -6,8 +6,6 @@ Nome do desenvolvedor : Victor Vagner Perez
 
 Nome do projeto : Project Flutter Target App
 
-# Desafio Pratico (Dev.Flutter)
-
  # Sobre o aplicativo 
  É um aplicativo com login e sistema de cadastro de textos.
  
