@@ -5,8 +5,6 @@ import '../../../core/base/dal/data/error_data.dart';
 import '../../../core/base/mixins/l18n_mixin.dart';
 import '../../../core/resources/auth/domain/constants/auth_errors_constants.dart';
 import '../../../core/resources/auth/domain/exceptions/passwords_do_not_match_exception.dart';
-import '../../note/binding/note_viewmodel_binding.dart';
-import '../binding/auth_viewmodel_binding.dart';
 import '../usecases/authenticate_usecase.dart';
 
 class AuthViewModel extends IViewModel with l18nMixin {
