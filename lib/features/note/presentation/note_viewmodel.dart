@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import '../../../core/base/abstractions/viewmodel_interface.dart';
 import '../../../core/base/abstractions/field_interface.dart';
 import '../../../core/resources/note/domain/entities/note.entity.dart';
-import '../binding/note_viewmodel_binding.dart';
 import '../usecases/note_usecase.dart';
 
 class NoteViewModel extends IViewModel {
@@ -96,7 +95,5 @@ class NoteViewModel extends IViewModel {
   void dispose() {
     titleField.dispose();
     noteTextField.dispose();
-    titleField.valueNotifier.removeListener(_updateSaveButtonState);
-    noteTextField.valueNotifier.removeListener(_updateSaveButtonState);
   }
 }
