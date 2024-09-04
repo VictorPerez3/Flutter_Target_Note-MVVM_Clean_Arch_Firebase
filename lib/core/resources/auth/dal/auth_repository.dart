@@ -1,28 +1,20 @@
-import 'package:flutter_project_target/core/resources/auth/dal/dto/auth_user_body.dart';
-
+import '../../../base/dal/data/error_data.dart';
 import '../../../base/dal/storage/storage_interface.dart';
+import '../../../base/mixins/l18n_mixin.dart';
+import '../../note/domain/constants/note_errors.constants.dart';
+import '../../note/domain/exceptions/userid_not_found.exception.dart';
 import '../domain/constants/auth_storage_constants.dart';
 import '../domain/entities/user_entity.dart';
-import 'datasource/auth_datasource_interface.dart';
+import 'datasource/firebase_authentication/fb_authentication_datasource_interface.dart';
 import 'mappers/user_mapper.dart';
 
-class AuthRepository {
-  final IAuthDataSource authDataSource;
+class AuthRepository with l18nMixin {
+  final IFbAuthDataSource authDataSource;
   final IStorage storage;
 
   const AuthRepository({required this.authDataSource, required this.storage});
 
-  Future<({String token, User user})> authenticate({
-    required String username,
-    required String password,
-  }) async {
-    final body = AuthUserBody(username: username, password: password);
-    final response = await authDataSource.authenticateUser(body);
-    final model = UserMapper.toModel(response.data!.user);
-    return (user: model, token: response.data!.token);
-  }
-
-  Future<void> save(User user) async {
+  Future<void> saveUser(User user) async {
     final json = UserMapper.toJson(user);
     await storage.write(key: AuthStorageConstants.user, value: json);
   }
@@ -41,16 +33,21 @@ class AuthRepository {
     return token != null && user != null;
   }
 
-  Future<void> clearData() async {
-    await storage.remove(AuthStorageConstants.user);
-    await storage.remove(AuthStorageConstants.tokenAuthorization);
+  Future<String> getUserId() async {
+    final user =
+        await storage.read<Map<String, dynamic>>(AuthStorageConstants.user);
+    if (user != null && user.containsKey('id')) {
+      return user['id'] as String;
+    } else {
+      throw UseridNotFoundException(
+          failure: ErrorData(
+              message: l18n.strings.noteError.useridNotFoundMessage,
+              id: NoteErrorsConstants.useridNotFoundId));
+    }
   }
 
-  Future<({String token, User user})> signUp(
-      {required String username, required String password}) async {
-    final body = AuthUserBody(username: username, password: password);
-    final response = await authDataSource.signUp(body);
-    final model = UserMapper.toModel(response.data!.user);
-    return (user: model, token: response.data!.token);
+  Future<void> clearUserData() async {
+    await storage.remove(AuthStorageConstants.user);
+    await storage.remove(AuthStorageConstants.tokenAuthorization);
   }
 }

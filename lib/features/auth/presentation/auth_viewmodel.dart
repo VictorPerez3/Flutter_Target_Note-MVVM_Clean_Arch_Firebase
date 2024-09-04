@@ -5,10 +5,10 @@ import '../../../core/base/dal/data/error_data.dart';
 import '../../../core/base/mixins/l18n_mixin.dart';
 import '../../../core/resources/auth/domain/constants/auth_errors_constants.dart';
 import '../../../core/resources/auth/domain/exceptions/passwords_do_not_match_exception.dart';
-import '../usecases/authenticate_usecase.dart';
+import '../../../core/resources/auth/domain/usecases/auth_usecase.dart';
 
 class AuthViewModel extends IViewModel with l18nMixin {
-  final AuthenticateUsecase _authenticateUsecase;
+  final AuthUsecase _authenticateUsecase;
   final IField<String> completeNameField;
   final IField<String> usernameField;
   final IField<String> passwordField;
@@ -22,7 +22,7 @@ class AuthViewModel extends IViewModel with l18nMixin {
     required this.usernameField,
     required this.passwordField,
     required this.repeatPasswordField,
-    required AuthenticateUsecase authenticateUsecase,
+    required AuthUsecase authenticateUsecase,
   }) : _authenticateUsecase = authenticateUsecase {
     _setupReactionsSignIn();
     _setupReactionsSignUp();

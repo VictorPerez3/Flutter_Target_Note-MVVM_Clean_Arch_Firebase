@@ -1,35 +1,17 @@
-import 'package:flutter_project_target/core/resources/note/dal/data/note.data.dart';
-import 'package:flutter_project_target/core/resources/note/dal/dto/save_note.body.dart';
-import 'package:flutter_project_target/core/resources/note/domain/entities/note.entity.dart';
+import '../../../../base/utils/encrypt_util.dart';
+import '../../../auth/dal/auth_repository.dart';
+import '../../dal/data/note.data.dart';
+import '../../dal/datasource/firebase_realtime_database/fb_database_provider.dart';
+import '../../dal/dto/save_note.body.dart';
+import '../../dal/mappers/note.mapper.dart';
+import '../entities/note.entity.dart';
 
-import '../../../base/dal/data/error_data.dart';
-import '../../../base/dal/storage/storage_interface.dart';
-import '../../../base/mixins/l18n_mixin.dart';
-import '../../../base/utils/encrypt_util.dart';
-import '../../auth/domain/constants/auth_storage_constants.dart';
-import '../domain/constants/note_errors.constants.dart';
-import '../domain/exceptions/userid_not_found.exception.dart';
-import 'datasource/note.datasource.interface.dart';
-import 'mappers/note.mapper.dart';
+class NoteUsecase {
+  final FbDatabaseProvider firebaseDatabase;
+  final AuthRepository authRepository;
 
-class NoteRepository with l18nMixin {
-  final INoteDataSource noteDataSource;
-  final IStorage storage;
-
-  const NoteRepository({required this.noteDataSource, required this.storage});
-
-  Future<String> _getUserId() async {
-    final user =
-        await storage.read<Map<String, dynamic>>(AuthStorageConstants.user);
-    if (user != null && user.containsKey('id')) {
-      return user['id'] as String;
-    } else {
-      throw UseridNotFoundException(
-          failure: ErrorData(
-              message: l18n.strings.noteError.useridNotFoundMessage,
-              id: NoteErrorsConstants.useridNotFoundId));
-    }
-  }
+  const NoteUsecase(
+      {required this.firebaseDatabase, required this.authRepository});
 
   Future<Note> saveNote({
     required String noteType,
@@ -39,11 +21,17 @@ class NoteRepository with l18nMixin {
     final noteTextEncrypt = EncryptionUtil.encryptData(noteText);
     final titleEncrypt = EncryptionUtil.encryptData(title);
     final body = SaveNoteBody(title: titleEncrypt, noteText: noteTextEncrypt);
-    final userId = await _getUserId();
-    final response = await noteDataSource.saveNote(
+    final userId = await authRepository.getUserId();
+
+    final response = await firebaseDatabase.saveNote(
         body: body, userId: userId, noteType: noteType);
+
     final savedNote = NoteMapper.toModel(response.data!.noteData);
     return savedNote;
+  }
+
+  Future<void> logout() {
+    return authRepository.clearUserData();
   }
 
   Future<Note> editNote({
@@ -55,24 +43,28 @@ class NoteRepository with l18nMixin {
     final noteTextEncrypt = EncryptionUtil.encryptData(noteText);
     final titleEncrypt = EncryptionUtil.encryptData(title);
     final body = SaveNoteBody(title: titleEncrypt, noteText: noteTextEncrypt);
-    final userId = await _getUserId();
-    final response = await noteDataSource.editNote(
+    final userId = await authRepository.getUserId();
+
+    final response = await firebaseDatabase.editNote(
         body: body, userId: userId, noteId: noteId, noteType: noteType);
+
     final editedNote = NoteMapper.toModel(response.data!.noteData);
     return editedNote;
   }
 
   Future<void> deleteNote(
       {required String noteId, required String noteType}) async {
-    final userId = await _getUserId();
-    await noteDataSource.deleteNote(
+    final userId = await authRepository.getUserId();
+
+    await firebaseDatabase.deleteNote(
         userId: userId, noteId: noteId, noteType: noteType);
   }
 
   Future<Note?> getNote(
       {required String noteId, required String noteType}) async {
-    final userId = await _getUserId();
-    final noteData = await noteDataSource.getNote(
+    final userId = await authRepository.getUserId();
+
+    final noteData = await firebaseDatabase.getNote(
         userId: userId, noteId: noteId, noteType: noteType);
 
     final note = NoteData.fromJson(noteData!);
@@ -86,11 +78,14 @@ class NoteRepository with l18nMixin {
     );
   }
 
-  Future<List<Note>> getAllNotes({required String noteType}) async {
-    final userId = await _getUserId();
+  Future<List<Note>> getAllNotes({
+    required String noteType,
+  }) async {
+    final userId = await authRepository.getUserId();
     final notes = <Note>[];
+
     final notesData =
-        await noteDataSource.getAllNotes(userId: userId, noteType: noteType);
+        await firebaseDatabase.getAllNotes(userId: userId, noteType: noteType);
 
     for (var noteJson in notesData) {
       final noteData = NoteData.fromJson(noteJson);

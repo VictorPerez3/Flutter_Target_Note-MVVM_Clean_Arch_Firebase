@@ -6,12 +6,11 @@ import '../../../core/base/dal/storage/storage_interface.dart';
 import '../../../core/base/injection/inject.dart';
 import '../../../core/base/models/text_react_field_model.dart';
 import '../../../core/resources/auth/dal/auth_repository.dart';
-import '../../../core/resources/auth/dal/datasource/auth_datasource_interface.dart';
-import '../../../core/resources/note/dal/datasource/note.datasource.interface.dart';
-import '../../../core/resources/note/dal/note.repository.dart';
+import '../../../core/resources/auth/dal/datasource/firebase_authentication/fb_authentication_datasource_interface.dart';
+import '../../../core/resources/note/dal/datasource/firebase_realtime_database/fb_database_provider.dart';
+import '../../../core/resources/note/domain/usecases/note_usecase.dart';
 import '../presentation/note_viewmodel.dart';
 import '../presentation/tag/note_tag.dart';
-import '../usecases/note_usecase.dart';
 
 class NoteViewModelBinding {
   static void inject() {
@@ -29,13 +28,8 @@ class NoteViewModelBinding {
 
 NoteViewModel makeNoteViewModel() {
   final storage = Inject.find<IStorage>();
-  final noteDatasource = Inject.find<INoteDataSource>();
-  final authDatasource = Inject.find<IAuthDataSource>();
-
-  final noteRepository = NoteRepository(
-    storage: storage,
-    noteDataSource: noteDatasource,
-  );
+  final firebaseDatabase = Inject.find<FbDatabaseProvider>();
+  final authDatasource = Inject.find<IFbAuthDataSource>();
 
   final authRepository = AuthRepository(
     storage: storage,
@@ -43,7 +37,7 @@ NoteViewModel makeNoteViewModel() {
   );
 
   final noteUsecase = NoteUsecase(
-      noteRepository: noteRepository, authRepository: authRepository);
+      firebaseDatabase: firebaseDatabase, authRepository: authRepository);
 
   return NoteViewModel(
       titleField: makeTitleField(),

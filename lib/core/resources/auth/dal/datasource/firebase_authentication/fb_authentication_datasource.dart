@@ -1,23 +1,25 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../../../base/dal/data/error_data.dart';
-import '../../../../base/mixins/l18n_mixin.dart';
-import '../../domain/constants/auth_errors_constants.dart';
-import '../../domain/exceptions/email_already_in_use_exception.dart';
-import '../../domain/exceptions/invalid_email_exception.dart';
-import '../../domain/exceptions/network_request_failed_exception.dart';
-import '../../domain/exceptions/other_auth_exception.dart';
-import '../../domain/exceptions/username_or_password_incorrect_exception.dart';
-import '../data/user_data.dart';
-import '../dto/auth_user_body.dart';
-import '../dto/auth_user_response.dart';
-import 'auth_datasource_interface.dart';
+import '../../../../../base/dal/data/error_data.dart';
+import '../../../../../base/mixins/l18n_mixin.dart';
+import '../../../domain/constants/auth_errors_constants.dart';
+import '../../../domain/exceptions/email_already_in_use_exception.dart';
+import '../../../domain/exceptions/invalid_email_exception.dart';
+import '../../../domain/exceptions/network_request_failed_exception.dart';
+import '../../../domain/exceptions/other_auth_exception.dart';
+import '../../../domain/exceptions/username_or_password_incorrect_exception.dart';
+import '../../data/user_data.dart';
+import '../../dto/auth_user_body.dart';
+import '../../dto/auth_user_response.dart';
+import 'fb_authentication_datasource_interface.dart';
 
-class AuthDataSource with l18nMixin implements IAuthDataSource {
+class FbAuthDataSource with l18nMixin implements IFbAuthDataSource {
+  final FirebaseAuth _authentication = FirebaseAuth.instance;
+
   @override
   Future<AuthUserResponse> authenticateUser(AuthUserBody body) async {
     try {
-      final response = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      final response = await _authentication.signInWithEmailAndPassword(
         email: body.username,
         password: body.password,
       );
@@ -60,8 +62,7 @@ class AuthDataSource with l18nMixin implements IAuthDataSource {
   @override
   Future<AuthUserResponse> signUp(AuthUserBody body) async {
     try {
-      final response =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      final response = await _authentication.createUserWithEmailAndPassword(
         email: body.username,
         password: body.password,
       );

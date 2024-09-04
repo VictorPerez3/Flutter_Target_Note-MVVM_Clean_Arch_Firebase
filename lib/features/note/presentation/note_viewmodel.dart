@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import '../../../core/base/abstractions/viewmodel_interface.dart';
 import '../../../core/base/abstractions/field_interface.dart';
 import '../../../core/resources/note/domain/entities/note.entity.dart';
-import '../usecases/note_usecase.dart';
+import '../../../core/resources/note/domain/usecases/note_usecase.dart';
 
 class NoteViewModel extends IViewModel {
   final NoteUsecase _noteUsecase;
