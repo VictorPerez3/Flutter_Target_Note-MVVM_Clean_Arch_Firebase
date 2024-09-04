@@ -47,8 +47,7 @@ class EnUsStringsTranslations implements StringsTranslations {
   );
 
   final authError = AuthErrorStrings(
-      usernameMessage: 'Invalid Username',
-      passwordMessage: 'Invalid Password',
+      credentialsMessage: 'Invalid username or password',
       otherErrorMessage: 'An unknown error has occurred',
       emailAlreadyInUseMessage: 'Email already registered',
       invalidEmailMessage: 'Invalid Email',

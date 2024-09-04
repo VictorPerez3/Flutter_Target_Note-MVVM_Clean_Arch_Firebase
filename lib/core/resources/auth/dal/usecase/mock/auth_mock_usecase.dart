@@ -29,17 +29,12 @@ class AuthMockUseCase with l18nMixin {
       strMockUsername2: strMockUserId2,
     };
 
-    if (!validUsers.containsKey(body.username)) {
+    if (!validUsers.containsKey(body.username) ||
+        validUsers[body.username] != body.password) {
       throw UsernameOrPasswordIncorrectException(
         failure: ErrorData(
-            id: AuthErrorsConstants.usernameId,
-            message: l18n.strings.authError.usernameMessage),
-      );
-    } else if (validUsers[body.username] != body.password) {
-      throw UsernameOrPasswordIncorrectException(
-        failure: ErrorData(
-            id: AuthErrorsConstants.passwordId,
-            message: l18n.strings.authError.passwordMessage),
+            id: AuthErrorsConstants.credentialsId,
+            message: l18n.strings.authError.credentialsMessage),
       );
     }
 

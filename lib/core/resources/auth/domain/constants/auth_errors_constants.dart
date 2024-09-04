@@ -1,5 +1,5 @@
 abstract class AuthErrorsConstants {
-  static const usernameId = 'username';
+  static const credentialsId = 'username';
   static const passwordId = 'password';
   static const otherErrorId = 'other_error';
   static const emailAlreadyInUseId = 'email_already_in_use';

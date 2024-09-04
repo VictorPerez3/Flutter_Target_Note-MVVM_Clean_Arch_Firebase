@@ -1,6 +1,5 @@
 class AuthErrorStrings {
-  final String usernameMessage;
-  final String passwordMessage;
+  final String credentialsMessage;
   final String otherErrorMessage;
   final String emailAlreadyInUseMessage;
   final String invalidEmailMessage;
@@ -8,8 +7,7 @@ class AuthErrorStrings {
   final String passwordsDoNotMatchMessage;
 
   AuthErrorStrings(
-      {required this.usernameMessage,
-      required this.passwordMessage,
+      {required this.credentialsMessage,
       required this.otherErrorMessage,
       required this.emailAlreadyInUseMessage,
       required this.invalidEmailMessage,

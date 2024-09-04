@@ -48,8 +48,7 @@ class PtBrStringsTranslations implements StringsTranslations {
   );
 
   final authError = AuthErrorStrings(
-      usernameMessage: 'Username Inválido',
-      passwordMessage: 'Password Inválido',
+      credentialsMessage: 'Username ou Password Inválido',
       otherErrorMessage: 'Ocorreu um erro desconhecido',
       emailAlreadyInUseMessage: 'Email já registrado',
       invalidEmailMessage: 'Email Inválido',

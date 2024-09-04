@@ -34,17 +34,13 @@ class AuthDataSource with l18nMixin implements IAuthDataSource {
         errors: null,
       );
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
+      if (e.code == 'user-not-found' ||
+          e.code == 'invalid-credential' ||
+          e.code == 'wrong-password') {
         throw UsernameOrPasswordIncorrectException(
           failure: ErrorData(
-              id: AuthErrorsConstants.usernameId,
-              message: l18n.strings.authError.usernameMessage),
-        );
-      } else if (e.code == 'wrong-password' || e.code == 'invalid-credential') {
-        throw UsernameOrPasswordIncorrectException(
-          failure: ErrorData(
-              id: AuthErrorsConstants.passwordId,
-              message: l18n.strings.authError.passwordMessage),
+              id: AuthErrorsConstants.credentialsId,
+              message: l18n.strings.authError.credentialsMessage),
         );
       } else if (e.code == 'network-request-failed') {
         throw NetworkRequestFailedException(ErrorData(
