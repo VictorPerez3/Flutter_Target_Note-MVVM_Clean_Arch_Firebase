@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_target/features/auth/presentation/tag/auth_tag.dart';
 import 'package:go_router/go_router.dart';
+import '../../../core/base/abstractions/custom_exception_interface.dart';
 import '../../../core/base/mixins/analytics_mixin.dart';
 import '../../../core/base/mixins/viewmodel_mixin.dart';
 import '../../../core/base/mixins/l18n_mixin.dart';
 import '../../../core/base/utils/snackbar_util.dart';
 import '../../../core/navigation/routes.dart';
-import '../../../core/resources/auth/domain/exceptions/email_already_in_use_exception.dart';
-import '../../../core/resources/auth/domain/exceptions/invalid_email_exception.dart';
-import '../../../core/resources/auth/domain/exceptions/network_request_failed_exception.dart';
 import '../../../core/resources/auth/domain/exceptions/other_auth_exception.dart';
-import '../../../core/resources/auth/domain/exceptions/passwords_do_not_match_exception.dart';
 import '../../../core/resources/auth/domain/exceptions/username_or_password_incorrect_exception.dart';
 import '../../shared/loading/loading_widget.dart';
 import '../../shared/widgets/auth/auth_text_field_widget.dart';
@@ -52,8 +49,7 @@ class AuthScreen extends StatelessWidget
   void createUser(BuildContext context) async {
     try {
       FocusScope.of(context).unfocus();
-      await tag
-          .onCreateUserEvent(l18n.strings.loginPage.signUpButtonLabel);
+      await tag.onCreateUserEvent(l18n.strings.loginPage.signUpButtonLabel);
       final userId = await viewModel.createUser();
       if (userId != null) {
         if (context.mounted) {
@@ -63,15 +59,7 @@ class AuthScreen extends StatelessWidget
               message: l18n.strings.loginPage.addUserToast);
         }
       }
-    } on OtherAuthException catch (err) {
-      if (context.mounted) showErrorSnackbar(context: context, err: err);
-    } on EmailAlreadyInUseException catch (err) {
-      if (context.mounted) showErrorSnackbar(context: context, err: err);
-    } on InvalidEmailException catch (err) {
-      if (context.mounted) showErrorSnackbar(context: context, err: err);
-    } on PasswordsDoNotMatchException catch (err) {
-      if (context.mounted) showErrorSnackbar(context: context, err: err);
-    } on NetworkRequestFailedException catch (err) {
+    } on CustomException catch (err) {
       if (context.mounted) showErrorSnackbar(context: context, err: err);
     }
   }

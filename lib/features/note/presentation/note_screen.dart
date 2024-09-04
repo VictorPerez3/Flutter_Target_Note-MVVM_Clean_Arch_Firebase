@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project_target/core/resources/note/domain/exceptions/decrypt_fail.exception.dart';
-import 'package:flutter_project_target/core/resources/note/domain/exceptions/note_not_found.exception.dart';
-import 'package:flutter_project_target/core/resources/note/domain/exceptions/operation_note_fail.exception.dart';
-import 'package:flutter_project_target/core/resources/note/domain/exceptions/userid_not_found.exception.dart';
 import 'package:flutter_project_target/features/note/presentation/note_viewmodel.dart';
 import 'package:flutter_project_target/features/note/presentation/tag/note_tag.dart';
 import 'package:go_router/go_router.dart';
@@ -72,13 +68,7 @@ class NoteScreen extends StatelessWidget
               title: l18n.strings.general.sucessToast,
               message: l18n.strings.notePage.editItemToast);
         }
-      } on OperationNoteFailException catch (err) {
-        if (context.mounted) showErrorSnackbar(context: context, err: err);
-      } on UseridNotFoundException catch (err) {
-        if (context.mounted) showErrorSnackbar(context: context, err: err);
-      } on NoteNotFoundException catch (err) {
-        if (context.mounted) showErrorSnackbar(context: context, err: err);
-      } on DecryptFailException catch (err) {
+      } on CustomException catch (err) {
         if (context.mounted) showErrorSnackbar(context: context, err: err);
       }
     }
