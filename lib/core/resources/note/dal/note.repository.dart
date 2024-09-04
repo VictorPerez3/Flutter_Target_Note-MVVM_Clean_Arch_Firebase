@@ -2,11 +2,11 @@ import 'package:flutter_project_target/core/resources/note/dal/data/note.data.da
 import 'package:flutter_project_target/core/resources/note/dal/dto/save_note.body.dart';
 import 'package:flutter_project_target/core/resources/note/domain/entities/note.entity.dart';
 
-import '../../../base/dal/data/error.data.dart';
-import '../../../base/dal/storage/storage.interface.dart';
-import '../../../base/mixins/l18n.mixin.dart';
-import '../../../base/utils/encrypt.util.dart';
-import '../../auth/domain/constants/auth_storage.constants.dart';
+import '../../../base/dal/data/error_data.dart';
+import '../../../base/dal/storage/storage_interface.dart';
+import '../../../base/mixins/l18n_mixin.dart';
+import '../../../base/utils/encrypt_util.dart';
+import '../../auth/domain/constants/auth_storage_constants.dart';
 import '../domain/constants/note_errors.constants.dart';
 import '../domain/exceptions/userid_not_found.exception.dart';
 import 'datasource/note.datasource.interface.dart';

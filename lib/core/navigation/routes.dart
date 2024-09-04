@@ -1,5 +1,5 @@
 import '../base/injection/inject.dart';
-import '../resources/auth/dal/auth.repository.dart';
+import '../resources/auth/dal/auth_repository.dart';
 
 class Routes {
   static Future<String> get initialRoute async {

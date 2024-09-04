@@ -1,8 +1,8 @@
 import 'package:flutter_project_target/core/resources/note/dal/datasource/note.datasource.interface.dart';
 import 'package:flutter_project_target/core/resources/note/domain/constants/note_errors.constants.dart';
 
-import '../../../../base/dal/data/error.data.dart';
-import '../../../../base/firebase/realtime_database/database_provider.dart';
+import '../../../../base/dal/data/error_data.dart';
+import '../../../../base/firebase/realtime_database/fb_database_provider.dart';
 import '../../domain/exceptions/operation_note_fail.exception.dart';
 import '../data/note.data.dart';
 import '../dto/save_note.body.dart';

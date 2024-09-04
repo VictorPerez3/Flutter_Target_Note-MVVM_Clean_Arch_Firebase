@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_project_target/features/auth/presentation/auth.screen.dart';
+import 'package:flutter_project_target/features/auth/presentation/auth_screen.dart';
 
 import 'config.dart';
-import 'core/base/firebase/cloud_messaging/cloud_messaging_provider.dart';
-import 'core/base/firebase/crashlytics/crashlytics_provider.dart';
+import 'core/base/firebase/cloud_messaging/fb_cloud_messaging_provider.dart';
+import 'core/base/firebase/crashlytics/fb_crashlytics_provider.dart';
 import 'core/base/injection/inject.dart';
 import 'core/navigation/navigation.dart';
 import 'core/navigation/routes.dart';

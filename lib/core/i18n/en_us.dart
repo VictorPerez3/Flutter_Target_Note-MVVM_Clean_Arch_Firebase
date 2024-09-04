@@ -1,9 +1,9 @@
-import 'contexts/auth_error.strings.dart';
-import 'contexts/auth_screen.strings.dart';
-import 'contexts/general.strings.dart';
-import 'contexts/note_error.strings.dart';
-import 'contexts/note_screen.strings.dart';
-import 'contexts/validators.strings.dart';
+import 'contexts/auth_error_strings.dart';
+import 'contexts/auth_screen_strings.dart';
+import 'contexts/general_strings.dart';
+import 'contexts/note_error_strings.dart';
+import 'contexts/note_screen_strings.dart';
+import 'contexts/validators_strings.dart';
 import 'translation.dart';
 
 class EnUsStringsTranslations implements StringsTranslations {
