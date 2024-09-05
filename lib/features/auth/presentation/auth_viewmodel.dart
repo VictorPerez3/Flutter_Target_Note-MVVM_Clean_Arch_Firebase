@@ -27,10 +27,10 @@ class AuthViewModel extends IViewModel with l18nMixin {
     _setupReactionsSignIn();
     _setupReactionsSignUp();
 
-    // Inicializar os campos com valores padrão
-    usernameField.valueNotifier.value = 'teste@teste.com';
-    passwordField.valueNotifier.value = 'teste123';
-    //////////////////////////////////////////
+    // // Inicializar os campos com valores padrão
+    // usernameField.valueNotifier.value = 'teste@teste.com';
+    // passwordField.valueNotifier.value = 'teste123';
+    // //////////////////////////////////////////
   }
 
   void _setupReactionsSignIn() {
