@@ -84,6 +84,7 @@ ios/Flutter/flutter_export_environment.sh
 /android/app/profile
 /android/app/release
 
+# Exceptions to above rules.
 lib/config.dart
 
 # FVM Version Cache
