@@ -7,8 +7,13 @@ import '../../../core/base/injection/inject.dart';
 import '../../../core/base/models/text_react_field_model.dart';
 import '../../../core/resources/auth/dal/auth_repository.dart';
 import '../../../core/resources/auth/dal/datasource/firebase_authentication/fb_authentication_datasource_interface.dart';
+import '../../../core/resources/auth/domain/usecases/logout_usecase.dart';
 import '../../../core/resources/note/dal/datasource/firebase_realtime_database/fb_database_provider.dart';
-import '../../../core/resources/note/domain/usecases/note_usecase.dart';
+import '../../../core/resources/note/domain/usecases/delete_note_usecase.dart';
+import '../../../core/resources/note/domain/usecases/edit_note_usecase.dart';
+import '../../../core/resources/note/domain/usecases/get_all_notes_usecase.dart';
+import '../../../core/resources/note/domain/usecases/get_note_usecase.dart';
+import '../../../core/resources/note/domain/usecases/save_note_usecase.dart';
 import '../presentation/note_viewmodel.dart';
 import '../presentation/tag/note_tag.dart';
 
@@ -36,13 +41,32 @@ NoteViewModel makeNoteViewModel() {
     authDataSource: authDatasource,
   );
 
-  final noteUsecase = NoteUsecase(
+  final deleteNoteUsecase = DeleteNoteUsecase(
       firebaseDatabase: firebaseDatabase, authRepository: authRepository);
+
+  final editNoteUsecase = EditNoteUsecase(
+      firebaseDatabase: firebaseDatabase, authRepository: authRepository);
+
+  final getAllNotesUsecase = GetAllNotesUsecase(
+      firebaseDatabase: firebaseDatabase, authRepository: authRepository);
+
+  final getNoteUsecase = GetNoteUsecase(
+      firebaseDatabase: firebaseDatabase, authRepository: authRepository);
+
+  final saveNoteUsecase = SaveNoteUsecase(
+      firebaseDatabase: firebaseDatabase, authRepository: authRepository);
+
+  final logoutUsecase = LogoutUsecase(authRepository: authRepository);
 
   return NoteViewModel(
       titleField: makeTitleField(),
       noteTextField: makeNoteTextField(),
-      noteUsecase: noteUsecase);
+      deleteNoteUsecase: deleteNoteUsecase,
+      editNoteUsecase: editNoteUsecase,
+      getAllNotesUsecase: getAllNotesUsecase,
+      getNoteUsecase: getNoteUsecase,
+      saveNoteUsecase: saveNoteUsecase,
+      logoutUsecase: logoutUsecase);
 }
 
 NoteTag makeNoteTag() {

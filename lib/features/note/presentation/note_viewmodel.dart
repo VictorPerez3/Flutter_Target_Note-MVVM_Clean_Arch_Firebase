@@ -1,11 +1,22 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_project_target/core/resources/auth/domain/usecases/logout_usecase.dart';
+import 'package:flutter_project_target/core/resources/note/domain/usecases/get_all_notes_usecase.dart';
+import 'package:flutter_project_target/core/resources/note/domain/usecases/get_note_usecase.dart';
 import '../../../core/base/abstractions/viewmodel_interface.dart';
 import '../../../core/base/abstractions/field_interface.dart';
 import '../../../core/resources/note/domain/entities/note.entity.dart';
-import '../../../core/resources/note/domain/usecases/note_usecase.dart';
+import '../../../core/resources/note/domain/usecases/delete_note_usecase.dart';
+import '../../../core/resources/note/domain/usecases/edit_note_usecase.dart';
+import '../../../core/resources/note/domain/usecases/save_note_usecase.dart';
 
 class NoteViewModel extends IViewModel {
-  final NoteUsecase _noteUsecase;
+  final DeleteNoteUsecase deleteNoteUsecase;
+  final EditNoteUsecase editNoteUsecase;
+  final GetAllNotesUsecase getAllNotesUsecase;
+  final GetNoteUsecase getNoteUsecase;
+  final SaveNoteUsecase saveNoteUsecase;
+  final LogoutUsecase logoutUsecase;
+
   final IField<String> titleField;
   final IField<String> noteTextField;
 
@@ -16,10 +27,14 @@ class NoteViewModel extends IViewModel {
   NoteViewModel({
     required this.titleField,
     required this.noteTextField,
-    required NoteUsecase noteUsecase,
-  }) : _noteUsecase = noteUsecase {
+    required this.deleteNoteUsecase,
+    required this.editNoteUsecase,
+    required this.getAllNotesUsecase,
+    required this.getNoteUsecase,
+    required this.saveNoteUsecase,
+    required this.logoutUsecase,
+  }) {
     _loadNotes();
-
     titleField.valueNotifier.addListener(_updateSaveButtonState);
     noteTextField.valueNotifier.addListener(_updateSaveButtonState);
     noteTypeMode.addListener(_loadNotes);
@@ -34,7 +49,7 @@ class NoteViewModel extends IViewModel {
   Future<void> logout() async {
     try {
       loading.isLoading = true;
-      _noteUsecase.logout();
+      await logoutUsecase.logout();
     } finally {
       loading.isLoading = false;
     }
@@ -44,14 +59,15 @@ class NoteViewModel extends IViewModel {
     required String title,
     required String noteText,
   }) async {
-    final noteSaved = await _noteUsecase.saveNote(
+    final noteSaved = await saveNoteUsecase.saveNote(
         noteType: noteTypeMode.value, title: title, noteText: noteText);
     await _loadNotes();
     return noteSaved;
   }
 
   Future<void> removeNote(String noteId) async {
-    await _noteUsecase.deleteNote(noteType: noteTypeMode.value, noteId: noteId);
+    await deleteNoteUsecase.deleteNote(
+        noteType: noteTypeMode.value, noteId: noteId);
     await _loadNotes();
   }
 
@@ -60,7 +76,7 @@ class NoteViewModel extends IViewModel {
     required String title,
     required String noteText,
   }) async {
-    final editedNote = await _noteUsecase.editNote(
+    final editedNote = await editNoteUsecase.editNote(
         noteType: noteTypeMode.value,
         noteId: noteId,
         title: title,
@@ -73,7 +89,7 @@ class NoteViewModel extends IViewModel {
     try {
       loading.isLoading = true;
       final allNotes =
-          await _noteUsecase.getAllNotes(noteType: noteTypeMode.value);
+          await getAllNotesUsecase.getAllNotes(noteType: noteTypeMode.value);
       notes.value = allNotes;
     } finally {
       loading.isLoading = false;
