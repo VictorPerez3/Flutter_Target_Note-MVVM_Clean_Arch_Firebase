@@ -20,7 +20,7 @@ class FbAuthDataSource with l18nMixin implements IFbAuthDataSource {
   Future<AuthUserResponse> authenticateUser(AuthUserBody body) async {
     try {
       final response = await _authentication.signInWithEmailAndPassword(
-        email: body.username,
+        email: body.email,
         password: body.password,
       );
 
@@ -38,6 +38,7 @@ class FbAuthDataSource with l18nMixin implements IFbAuthDataSource {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found' ||
           e.code == 'invalid-credential' ||
+          e.code == 'invalid-email' ||
           e.code == 'wrong-password') {
         throw UsernameOrPasswordIncorrectException(
           failure: ErrorData(
@@ -63,7 +64,7 @@ class FbAuthDataSource with l18nMixin implements IFbAuthDataSource {
   Future<AuthUserResponse> signUp(AuthUserBody body) async {
     try {
       final response = await _authentication.createUserWithEmailAndPassword(
-        email: body.username,
+        email: body.email,
         password: body.password,
       );
 
