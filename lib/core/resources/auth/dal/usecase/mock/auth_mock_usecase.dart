@@ -29,8 +29,8 @@ class AuthMockUseCase with l18nMixin {
       strMockUsername2: strMockUserId2,
     };
 
-    if (!validUsers.containsKey(body.username) ||
-        validUsers[body.username] != body.password) {
+    if (!validUsers.containsKey(body.email) ||
+        validUsers[body.email] != body.password) {
       throw UsernameOrPasswordIncorrectException(
         failure: ErrorData(
             id: AuthErrorsConstants.credentialsId,
@@ -40,7 +40,7 @@ class AuthMockUseCase with l18nMixin {
 
     return AuthUserResponse(
       data: AuthUserDataResponse(
-        user: UserData(id: userIds[body.username]!, username: body.username),
+        user: UserData(id: userIds[body.email]!, username: body.email),
         token: 'fake_token',
       ),
       errors: null,

@@ -1,15 +1,15 @@
 class ValidatorsStrings {
   final String invalidPassword;
-  final String invalidUsername;
+  final String invalidEmail;
   final String required;
-  final String requiredUsername;
+  final String requiredEmail;
   final String requiredPassword;
 
   ValidatorsStrings({
     required this.invalidPassword,
-    required this.invalidUsername,
+    required this.invalidEmail,
     required this.required,
-    required this.requiredUsername,
+    required this.requiredEmail,
     required this.requiredPassword,
   });
 }

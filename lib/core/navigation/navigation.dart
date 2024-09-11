@@ -12,13 +12,23 @@ class Navigation {
     debugLogDiagnostics: true,
     routes: [
       GoRoute(
-        path: Routes.auth,
-        name: Routes.auth,
+        path: Routes.signIn,
+        name: Routes.signIn,
         builder: (context, state) => EntryProvider(
-          screenName: Routes.auth,
-          onBuild: (_) => const AuthScreen(),
-          onInit: (_) => AuthViewModelBinding.inject(),
-          onDispose: (_) => AuthViewModelBinding.dispose(),
+          screenName: Routes.signIn,
+          onBuild: (_) => const SignInScreen(),
+          onInit: (_) => SignInViewModelBinding.inject(),
+          onDispose: (_) => SignInViewModelBinding.dispose(),
+        ),
+      ),
+      GoRoute(
+        path: Routes.signUp,
+        name: Routes.signUp,
+        builder: (context, state) => EntryProvider(
+          screenName: Routes.signUp,
+          onBuild: (_) => const SignUpScreen(),
+          onInit: (_) => SignUpViewModelBinding.inject(),
+          onDispose: (_) => SignUpViewModelBinding.dispose(),
         ),
       ),
       GoRoute(

@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 
-BoxDecoration backgroundBoxDecoration() {
-  return const BoxDecoration(
-    gradient: LinearGradient(
-      begin: Alignment.topCenter,
-      end: Alignment.bottomCenter,
-      colors: [Color(0xFF00796B), Color(0xFFB2DFDB)],
+BoxDecoration backgroundBoxDecoration({required bool signIn}) {
+  return BoxDecoration(
+    color: Colors.black,
+    image: DecorationImage(
+      image: AssetImage(
+        signIn
+            ? 'assets/images/custom-background/bg-sign-in-screen.png'
+            : 'assets/images/custom-background/bg-sign-up-screen.png',
+      ),
+      fit: BoxFit.cover,
     ),
   );
 }

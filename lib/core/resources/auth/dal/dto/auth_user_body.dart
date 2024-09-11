@@ -5,13 +5,13 @@ part 'auth_user_body.g.dart';
 
 @JsonSerializable()
 class AuthUserBody extends Equatable {
-  final String username;
+  final String email;
   final String password;
 
   AuthUserBody({
-    required String username,
+    required String email,
     required String password,
-  })  : username = username.trim(),
+  })  : email = email.trim(),
         password = password.trim();
 
   factory AuthUserBody.fromJson(Map<String, dynamic> json) =>
@@ -19,7 +19,7 @@ class AuthUserBody extends Equatable {
 
   Map<String, dynamic> toJson() => _$AuthUserBodyToJson(this);
 
-  bool get isValid => _isPasswordValid && _isUsernameValid;
+  bool get isValid => _isPasswordValid && _isEmailValid;
 
   bool get _isPasswordValid {
     return password.length >= 2 &&
@@ -27,10 +27,10 @@ class AuthUserBody extends Equatable {
         RegExp(r'^[a-zA-Z0-9]+$').hasMatch(password);
   }
 
-  bool get _isUsernameValid {
-    return username.length <= 20 && username.isNotEmpty;
+  bool get _isEmailValid {
+    return email.length <= 20 && email.isNotEmpty;
   }
 
   @override
-  List<Object?> get props => [username, password];
+  List<Object?> get props => [email, password];
 }

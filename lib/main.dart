@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_project_target/features/auth/presentation/auth_screen.dart';
 
 import 'config.dart';
 import 'core/base/firebase/cloud_messaging/fb_cloud_messaging_provider.dart';
@@ -9,6 +8,7 @@ import 'core/base/firebase/crashlytics/fb_crashlytics_provider.dart';
 import 'core/base/injection/inject.dart';
 import 'core/navigation/navigation.dart';
 import 'core/navigation/routes.dart';
+import 'features/auth/sign_in/presentation/sign_in_screen.dart';
 import 'initializer.dart';
 
 void main() async {
@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      home: const AuthScreen(),
+      home: const SignInScreen(),
     );
     return MaterialApp.router(routerConfig: Navigation.router);
   }

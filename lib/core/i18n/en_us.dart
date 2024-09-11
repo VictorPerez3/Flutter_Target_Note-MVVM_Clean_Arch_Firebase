@@ -10,11 +10,16 @@ class EnUsStringsTranslations implements StringsTranslations {
   static const String getLocale = 'en-US';
 
   final loginPage = AuthScreenStrings(
-    titleLabel: 'Project Target Note',
-    userNameLabel: 'E-mail',
+    titleSignInLabel: 'Target Note',
+    titleSignUpLabel: 'Create \nAccount.',
+    completeNameLabel: 'Name',
+    emailLabel: 'E-mail',
     passwordLabel: 'Password',
-    signInButtonLabel: 'Join',
-    signUpButtonLabel: 'Create User',
+    repeatPasswordLabel: 'Repeat Password',
+    signInButtonLabel: 'Sign In',
+    signUpButtonLabel: 'Sign Up',
+    signInTextLabel: "Already don't have an Account ?",
+    signUpTextLabel: "Already have an Account ?",
     addUserToast: 'New User Created',
   );
 
@@ -39,15 +44,15 @@ class EnUsStringsTranslations implements StringsTranslations {
   );
 
   final validators = ValidatorsStrings(
-    invalidUsername: 'User is invalid',
-    requiredUsername: 'User is required',
+    invalidEmail: 'E-mail is invalid',
+    requiredEmail: 'E-mail is required',
     invalidPassword: 'Password invalid: At least 6 characters',
     requiredPassword: 'Password is required',
     required: 'Field is required',
   );
 
   final authError = AuthErrorStrings(
-      credentialsMessage: 'Invalid username or password',
+      credentialsMessage: 'Invalid e-mail or password',
       otherErrorMessage: 'An unknown error has occurred',
       emailAlreadyInUseMessage: 'Email already registered',
       invalidEmailMessage: 'Invalid Email',

@@ -7,12 +7,12 @@ part of 'auth_user_body.dart';
 // **************************************************************************
 
 AuthUserBody _$AuthUserBodyFromJson(Map<String, dynamic> json) => AuthUserBody(
-      username: json['username'] as String,
+      email: json['email'] as String,
       password: json['password'] as String,
     );
 
 Map<String, dynamic> _$AuthUserBodyToJson(AuthUserBody instance) =>
     <String, dynamic>{
-      'username': instance.username,
+      'email': instance.email,
       'password': instance.password,
     };

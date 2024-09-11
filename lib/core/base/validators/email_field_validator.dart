@@ -4,15 +4,15 @@ import '../../i18n/translation.dart';
 import '../abstractions/validators/field_validator_interface.dart';
 import '../injection/inject.dart';
 
-class UsernameFieldValidator<T> extends Equatable
+class EmailFieldValidator<T> extends Equatable
     implements IFieldValidator<T> {
   final i18n = Inject.find<StringsTranslations>().strings.validators;
 
   @override
   String? validate(T? value) {
-    final messageInvalidUsername = i18n.invalidUsername;
+    final messageInvalidEmail = i18n.invalidEmail;
     if (value is String && value.length < 6) {
-      return messageInvalidUsername;
+      return messageInvalidEmail;
     }
     return null;
   }

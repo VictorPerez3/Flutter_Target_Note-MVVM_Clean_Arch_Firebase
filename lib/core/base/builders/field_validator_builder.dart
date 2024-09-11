@@ -1,7 +1,7 @@
 import '../abstractions/validators/field_validator_interface.dart';
 import '../validators/password_field_validator.dart';
 import '../validators/required_field_validator.dart';
-import '../validators/username_field_validator.dart';
+import '../validators/email_field_validator.dart';
 
 class FieldValidatorBuilder<T> {
   final List<IFieldValidator<T>> _validators = [];
@@ -17,7 +17,7 @@ class FieldValidatorBuilder<T> {
   }
 
   FieldValidatorBuilder<T> username() {
-    _validators.add(UsernameFieldValidator<T>());
+    _validators.add(EmailFieldValidator<T>());
     return this;
   }
 

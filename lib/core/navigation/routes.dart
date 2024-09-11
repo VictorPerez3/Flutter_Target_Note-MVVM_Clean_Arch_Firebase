@@ -12,12 +12,13 @@ class Routes {
       if (isUserLoggedIn) {
         return note;
       }
-      return auth;
+      return signIn;
     } catch (err) {
-      return auth;
+      return signIn;
     }
   }
 
-  static const auth = '/auth';
+  static const signIn = '/auth/sign_in';
+  static const signUp = '/auth/sign_up';
   static const note = '/note';
 }
