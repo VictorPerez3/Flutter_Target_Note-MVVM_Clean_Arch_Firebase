@@ -1,4 +1,5 @@
 import '../../../../core/base/firebase/analytics/fb_analytics_base.dart';
+import '../../../../core/base/firebase/analytics/fb_analytics_events_enum.dart';
 
 class NoteTag extends AnalyticsBase {
   const NoteTag(super.analytics);
@@ -7,18 +8,18 @@ class NoteTag extends AnalyticsBase {
   String get category => 'note';
 
   Future<void> onLogoutEvent(String label) async {
-    sendLogoutEvent(label);
+    sendEvent(event: AnalyticsEventsEnum.logout, label: label);
   }
 
   Future<void> onSaveNoteEvent(String label) async {
-    sendSaveNoteEvent(label);
+    sendEvent(event: AnalyticsEventsEnum.saveNote, label: label);
   }
 
   Future<void> onEditNoteEvent(String label) async {
-    sendEditNoteEvent(label);
+    sendEvent(event: AnalyticsEventsEnum.editNote, label: label);
   }
 
   Future<void> onDeleteNoteEvent(String label) async {
-    sendDeleteNoteEvent(label);
+    sendEvent(event: AnalyticsEventsEnum.deleteNote, label: label);
   }
 }
