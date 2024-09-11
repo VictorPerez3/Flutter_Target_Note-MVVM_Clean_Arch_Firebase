@@ -4,6 +4,7 @@ import 'package:flutter_project_target/features/note/presentation/tag/note_tag.d
 import 'package:go_router/go_router.dart';
 
 import '../../../core/base/abstractions/custom_exception_interface.dart';
+import '../../../core/base/constants/general_string.dart';
 import '../../../core/base/mixins/analytics_mixin.dart';
 import '../../../core/base/mixins/viewmodel_mixin.dart';
 import '../../../core/base/mixins/l18n_mixin.dart';
@@ -12,8 +13,6 @@ import '../../../core/navigation/routes.dart';
 import '../../../core/resources/note/domain/entities/note.entity.dart';
 import '../../shared/loading/loading_widget.dart';
 import '../../shared/widgets/general/background_box_decoration_widget.dart';
-import '../../shared/widgets/general/privacy_policy_label_widget.dart';
-import '../../shared/widgets/note/appbar_widget.dart';
 import '../../shared/widgets/note/note_details_dialog.dart';
 import '../../shared/widgets/note/note_list_widget.dart';
 import '../../shared/widgets/note/segmented_button_note_widget.dart';
@@ -28,7 +27,7 @@ class NoteScreen extends StatelessWidget
       await tag.onLogoutEvent("Logout");
       viewModel.logout();
       if (context.mounted) {
-        context.goNamed(Routes.auth);
+        context.goNamed(Routes.signIn);
       }
     } on CustomException catch (err) {
       if (context.mounted) showErrorSnackbar(context: context, err: err);
@@ -102,9 +101,9 @@ class NoteScreen extends StatelessWidget
   Widget build(BuildContext context) {
     return LoadingWidget(
       child: Scaffold(
-        appBar: CustomAppBar(onLogout: () => logout(context)),
+        appBar: buildAppBar(context),
         body: Container(
-          decoration: backgroundBoxDecoration(),
+          decoration: backgroundBoxDecoration(signIn: false),
           child: Padding(
             padding: const EdgeInsets.fromLTRB(15, 10, 15, 20),
             child: Column(
@@ -148,23 +147,22 @@ class NoteScreen extends StatelessWidget
                   ),
                 ),
                 const SizedBox(height: 10),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Spacer(flex: 1),
-                    Align(
-                      alignment: Alignment.center,
-                      child: PrivacyPolicyLabel(),
-                    ),
-                    Spacer(flex: 1),
-                  ],
-                ),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  PreferredSizeWidget buildAppBar(BuildContext context) {
+    return AppBar(
+      leading: IconButton(
+        icon: const Icon(Icons.logout),
+        onPressed: () => logout(context),
+      ),
+      title: const Text(GeneralConstants.strAppBarLabel),
+      centerTitle: true,
     );
   }
 }
