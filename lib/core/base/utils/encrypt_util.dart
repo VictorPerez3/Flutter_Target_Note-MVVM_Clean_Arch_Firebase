@@ -1,14 +1,12 @@
 import 'package:encrypt/encrypt.dart' as encrypt;
-
+import '../../../config.dart';
 import '../../resources/note/domain/exceptions/decrypt_fail.exception.dart';
 import '../dal/data/error_data.dart';
 
 class EncryptionUtil {
-  // Chave de criptografia fixa
-  static final _key = encrypt.Key.fromUtf8('my32lengthsupersecretnooneknows1');
-
-  // IV (Vetor de Inicialização) fixo
-  static final _iv = encrypt.IV.fromUtf8('8bytesiv12345678');
+  static final _key =
+      encrypt.Key.fromUtf8(ConfigEnvironments.getEncryptionKey());
+  static final _iv = encrypt.IV.fromUtf8(ConfigEnvironments.getIV());
 
   static final _encrypter = encrypt.Encrypter(encrypt.AES(_key));
 
@@ -23,7 +21,8 @@ class EncryptionUtil {
       return decrypted;
     } catch (e) {
       throw DecryptFailException(
-          failure: ErrorData(message: e.toString(), id: 'decrypt_fail'));
+        failure: ErrorData(message: e.toString(), id: 'decrypt_fail'),
+      );
     }
   }
 }

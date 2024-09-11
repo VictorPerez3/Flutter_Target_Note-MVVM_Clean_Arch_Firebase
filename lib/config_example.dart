@@ -7,22 +7,31 @@ class Environments {
 
 class ConfigEnvironments {
   static const String _currentEnvironments = Environments.develop;
+
   static const List<Map<String, String>> _availableEnvironments = [
     {
       'env': Environments.local,
-      'url': '',
+      'url': 'https://local-api-url.com',
+      'key': 'my32lengthsupersecretnooneknows1',
+      'iv': '8bytesiv12345678',
     },
     {
       'env': Environments.develop,
-      'url': '',
+      'url': 'https://dev-api-url.com',
+      'key': 'my32lengthsupersecretnooneknows1',
+      'iv': '8bytesiv12345678',
     },
     {
       'env': Environments.staging,
-      'url': '',
+      'url': 'https://staging-api-url.com',
+      'key': 'my32lengthsupersecretnooneknows1',
+      'iv': '8bytesiv12345678',
     },
     {
       'env': Environments.production,
-      'url': '',
+      'url': 'https://prod-api-url.com',
+      'key': 'my32lengthsupersecretnooneknows1',
+      'iv': '8bytesiv12345678',
     },
   ];
 
@@ -30,5 +39,13 @@ class ConfigEnvironments {
     return _availableEnvironments.firstWhere(
           (d) => d['env'] == _currentEnvironments,
     );
+  }
+
+  static String getEncryptionKey() {
+    return getEnvironments()['key']!;
+  }
+
+  static String getIV() {
+    return getEnvironments()['iv']!;
   }
 }
