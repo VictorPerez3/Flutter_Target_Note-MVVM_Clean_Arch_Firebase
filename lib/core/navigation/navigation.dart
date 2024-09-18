@@ -4,6 +4,7 @@ import '../../features/bindings.dart';
 import '../../features/screens.dart';
 import '../../initializer.dart';
 import '../base/utils/entry_provider_util.dart';
+import '../resources/note/domain/entities/note.entity.dart';
 import 'routes.dart';
 
 class Navigation {
@@ -32,14 +33,27 @@ class Navigation {
         ),
       ),
       GoRoute(
-        path: Routes.note,
-        name: Routes.note,
+        path: Routes.noteList,
+        name: Routes.noteList,
         builder: (context, state) => EntryProvider(
-          screenName: Routes.note,
-          onBuild: (_) => const NoteScreen(),
-          onInit: (_) => NoteViewModelBinding.inject(),
-          onDispose: (_) => NoteViewModelBinding.dispose(),
+          screenName: Routes.noteList,
+          onBuild: (_) => const NoteListScreen(),
+          onInit: (_) => NoteListViewModelBinding.inject(),
+          onDispose: (_) => NoteListViewModelBinding.dispose(),
         ),
+      ),
+      GoRoute(
+        path: Routes.noteDetails,
+        name: Routes.noteDetails,
+        builder: (context, state) {
+          final Note? note = state.extra as Note?;
+          return EntryProvider(
+            screenName: Routes.noteDetails,
+            onBuild: (_) => NoteDetailsScreen(note: note),
+            onInit: (_) => NoteDetailsViewModelBinding.inject(),
+            onDispose: (_) => NoteDetailsViewModelBinding.dispose(),
+          );
+        },
       ),
     ],
   );

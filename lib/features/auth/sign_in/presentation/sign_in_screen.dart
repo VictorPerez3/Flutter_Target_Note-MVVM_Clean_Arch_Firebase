@@ -26,7 +26,7 @@ class SignInScreen extends StatelessWidget
       if (userId != null) {
         await tag.onLoginSucceed(userId);
         if (context.mounted) {
-          context.goNamed(Routes.note);
+          context.goNamed(Routes.noteList);
         }
       }
     } on CustomException catch (err) {

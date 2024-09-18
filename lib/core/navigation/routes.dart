@@ -10,7 +10,7 @@ class Routes {
       );
       final isUserLoggedIn = await authRepository.isLoggedIn();
       if (isUserLoggedIn) {
-        return note;
+        return noteList;
       }
       return signIn;
     } catch (err) {
@@ -20,5 +20,6 @@ class Routes {
 
   static const signIn = '/auth/sign_in';
   static const signUp = '/auth/sign_up';
-  static const note = '/note';
+  static const noteList = '/note/list';
+  static const noteDetails = '/note/details';
 }
