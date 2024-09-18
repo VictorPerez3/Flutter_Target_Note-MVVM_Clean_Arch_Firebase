@@ -1,6 +1,6 @@
 # 📋 Project Flutter Target Note App
 
-* Data de Desenvolvimento/Ultima modificação : 29/08/2024
+* Data de Desenvolvimento/Ultima modificação : 18/09/2024
 
 * 👨‍💻 Desenvolvedor : Victor Vagner Perez
 

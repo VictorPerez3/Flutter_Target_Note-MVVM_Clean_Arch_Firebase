@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../../base/dal/data/error.data.dart';
+import '../../../../base/dal/data/error_data.dart';
 import '../data/note.data.dart';
 
 part 'save_note.response.g.dart';

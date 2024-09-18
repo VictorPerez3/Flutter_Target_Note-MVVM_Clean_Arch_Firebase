@@ -3,7 +3,8 @@ import 'package:go_router/go_router.dart';
 import '../../features/bindings.dart';
 import '../../features/screens.dart';
 import '../../initializer.dart';
-import '../base/utils/entry_provider.util.dart';
+import '../base/utils/entry_provider_util.dart';
+import '../resources/note/domain/entities/note.entity.dart';
 import 'routes.dart';
 
 class Navigation {
@@ -12,24 +13,47 @@ class Navigation {
     debugLogDiagnostics: true,
     routes: [
       GoRoute(
-        path: Routes.auth,
-        name: Routes.auth,
+        path: Routes.signIn,
+        name: Routes.signIn,
         builder: (context, state) => EntryProvider(
-          screenName: Routes.auth,
-          onBuild: (_) => const AuthScreen(),
-          onInit: (_) => AuthViewModelBinding.inject(),
-          onDispose: (_) => AuthViewModelBinding.dispose(),
+          screenName: Routes.signIn,
+          onBuild: (_) => const SignInScreen(),
+          onInit: (_) => SignInViewModelBinding.inject(),
+          onDispose: (_) => SignInViewModelBinding.dispose(),
         ),
       ),
       GoRoute(
-        path: Routes.note,
-        name: Routes.note,
+        path: Routes.signUp,
+        name: Routes.signUp,
         builder: (context, state) => EntryProvider(
-          screenName: Routes.note,
-          onBuild: (_) => const NoteScreen(),
-          onInit: (_) => NoteViewModelBinding.inject(),
-          onDispose: (_) => NoteViewModelBinding.dispose(),
+          screenName: Routes.signUp,
+          onBuild: (_) => const SignUpScreen(),
+          onInit: (_) => SignUpViewModelBinding.inject(),
+          onDispose: (_) => SignUpViewModelBinding.dispose(),
         ),
+      ),
+      GoRoute(
+        path: Routes.noteList,
+        name: Routes.noteList,
+        builder: (context, state) => EntryProvider(
+          screenName: Routes.noteList,
+          onBuild: (_) => const NoteListScreen(),
+          onInit: (_) => NoteListViewModelBinding.inject(),
+          onDispose: (_) => NoteListViewModelBinding.dispose(),
+        ),
+      ),
+      GoRoute(
+        path: Routes.noteDetails,
+        name: Routes.noteDetails,
+        builder: (context, state) {
+          final Note? note = state.extra as Note?;
+          return EntryProvider(
+            screenName: Routes.noteDetails,
+            onBuild: (_) => NoteDetailsScreen(note: note),
+            onInit: (_) => NoteDetailsViewModelBinding.inject(),
+            onDispose: (_) => NoteDetailsViewModelBinding.dispose(),
+          );
+        },
       ),
     ],
   );

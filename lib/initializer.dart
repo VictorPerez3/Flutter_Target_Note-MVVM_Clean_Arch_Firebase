@@ -2,34 +2,30 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_project_target/core/resources/auth/dal/datasource/auth.datasource.interface.dart';
-import 'package:flutter_project_target/core/base/firebase/realtime_database/models/fb.database.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:devicelocale/devicelocale.dart';
 
 import 'config.dart';
-import 'core/base/constants/storage.constants.dart';
+import 'core/base/constants/storage_constants.dart';
 import 'core/base/dal/storage/getx_storage.dart';
-import 'core/base/dal/storage/storage.interface.dart';
-import 'core/base/firebase/analytics/analytics_mock.dart';
-import 'core/base/firebase/analytics/analytics_provider.dart';
-import 'core/base/firebase/analytics/models/fb.analytics.dart';
-import 'core/base/firebase/cloud_messaging/cloud_messaging_provider.dart';
-import 'core/base/firebase/cloud_messaging/models/fb.cloud_messaging.dart';
-import 'core/base/firebase/crashlytics/crashlytics_mock.dart';
-import 'core/base/firebase/crashlytics/crashlytics_provider.dart';
-import 'core/base/firebase/crashlytics/models/fb.crashlytics.dart';
-import 'core/base/firebase/realtime_database/database_provider.dart';
+import 'core/base/dal/storage/storage_interface.dart';
+import 'core/base/firebase/analytics/fb_analytics_mock.dart';
+import 'core/base/firebase/analytics/fb_analytics_provider.dart';
+import 'core/base/firebase/analytics/models/fb_analytics.dart';
+import 'core/base/firebase/cloud_messaging/fb_cloud_messaging_provider.dart';
+import 'core/base/firebase/cloud_messaging/models/fb_cloud_messaging.dart';
+import 'core/base/firebase/crashlytics/fb_crashlytics_mock.dart';
+import 'core/base/firebase/crashlytics/fb_crashlytics_provider.dart';
+import 'core/base/firebase/crashlytics/models/fb_crashlytics.dart';
 import 'core/base/injection/inject.dart';
 import 'core/i18n/pt_br.dart';
 import 'core/i18n/en_us.dart';
 import 'core/i18n/translation.dart';
-import 'core/resources/auth/dal/datasource/auth.datasource.dart';
-import 'core/resources/note/dal/datasource/note.datasource.dart';
-import 'core/resources/note/dal/datasource/note.datasource.interface.dart';
-import 'features/auth/binding/auth_viewmodel.binding.dart';
-import 'features/note/binding/note_viewmodel.binding.dart';
-import 'features/shared/loading/loading.viewmodel.dart';
+import 'core/resources/auth/dal/datasource/firebase_authentication/fb_authentication_datasource.dart';
+import 'core/resources/auth/dal/datasource/firebase_authentication/fb_authentication_datasource_interface.dart';
+import 'core/resources/note/dal/datasource/firebase_realtime_database/fb_database.dart';
+import 'core/resources/note/dal/datasource/firebase_realtime_database/fb_database_provider.dart';
+import 'features/shared/loading/loading_viewmodel.dart';
 import 'firebase_options.dart';
 
 class Initializer {
@@ -46,10 +42,8 @@ class Initializer {
       await _initCrashlytics();
       await _initPushNotifications();
       _initAnalytics();
-      _initFirebaseDatabase();
       // await _initConnectApi();
       _initDatasourceDependencies();
-      _initViewModelDependencies();
     } catch (err) {
       rethrow;
     }
@@ -68,16 +62,10 @@ class Initializer {
   }
 
   static void _initDatasourceDependencies() {
-    final firebaseDatabase = FbDatabaseImpl();
-    final authDatasource = AuthDataSource();
-    final noteDatasource = NoteDataSource(firebaseDatabase);
-    Inject.put<IAuthDataSource>(authDatasource);
-    Inject.put<INoteDataSource>(noteDatasource);
-  }
-
-  static void _initViewModelDependencies() {
-    AuthViewModelBinding.inject();
-    NoteViewModelBinding.inject();
+    final firebaseDatabase = FbDatabase();
+    final authDatasource = FbAuthDataSource();
+    Inject.put<IFbAuthDataSource>(authDatasource);
+    Inject.put<FbDatabaseProvider>(firebaseDatabase);
   }
 
   static Future<void> _initStorage() async {
@@ -140,11 +128,6 @@ class Initializer {
   static void _initAnalytics() {
     final provider = kDebugMode ? AnalyticsMock() : FbAnalyticsImpl();
     Inject.put<FbAnalyticsProvider>(provider);
-  }
-
-  static void _initFirebaseDatabase() {
-    final provider = FbDatabaseImpl();
-    Inject.put<FbDatabaseProvider>(provider);
   }
 
   static Future<void> _initPushNotifications() async {

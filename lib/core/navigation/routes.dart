@@ -1,5 +1,5 @@
 import '../base/injection/inject.dart';
-import '../resources/auth/dal/auth.repository.dart';
+import '../resources/auth/dal/auth_repository.dart';
 
 class Routes {
   static Future<String> get initialRoute async {
@@ -10,14 +10,16 @@ class Routes {
       );
       final isUserLoggedIn = await authRepository.isLoggedIn();
       if (isUserLoggedIn) {
-        return note;
+        return noteList;
       }
-      return auth;
+      return signIn;
     } catch (err) {
-      return auth;
+      return signIn;
     }
   }
 
-  static const auth = '/auth';
-  static const note = '/note';
+  static const signIn = '/auth/sign_in';
+  static const signUp = '/auth/sign_up';
+  static const noteList = '/note/list';
+  static const noteDetails = '/note/details';
 }

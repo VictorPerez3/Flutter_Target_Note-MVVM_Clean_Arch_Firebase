@@ -1,21 +1,26 @@
-import 'package:flutter_project_target/core/i18n/contexts/auth_error.strings.dart';
+import 'package:flutter_project_target/core/i18n/contexts/auth_error_strings.dart';
 
-import 'contexts/auth_screen.strings.dart';
-import 'contexts/general.strings.dart';
-import 'contexts/note_error.strings.dart';
-import 'contexts/note_screen.strings.dart';
-import 'contexts/validators.strings.dart';
+import 'contexts/auth_screen_strings.dart';
+import 'contexts/general_strings.dart';
+import 'contexts/note_error_strings.dart';
+import 'contexts/note_screen_strings.dart';
+import 'contexts/validators_strings.dart';
 import 'translation.dart';
 
 class PtBrStringsTranslations implements StringsTranslations {
   static const String getLocale = 'pt-BR';
 
   final loginPage = AuthScreenStrings(
-    titleLabel: 'Project Target Note',
-    userNameLabel: 'E-mail',
+    titleSignInLabel: 'Target Note',
+    titleSignUpLabel: 'Create \nAccount.',
+    completeNameLabel: 'Nome',
+    emailLabel: 'E-mail',
     passwordLabel: 'Senha',
+    repeatPasswordLabel: 'Repetir Senha',
     signInButtonLabel: 'Entrar',
     signUpButtonLabel: 'Criar Usuário',
+    signInTextLabel: "Ainda não tem uma conta ?",
+    signUpTextLabel: "Já tem uma conta ?",
     addUserToast: 'Novo Usuário Criado',
   );
 
@@ -40,16 +45,15 @@ class PtBrStringsTranslations implements StringsTranslations {
   );
 
   final validators = ValidatorsStrings(
-    invalidUsername: 'Campo Usuário inválido',
-    requiredUsername: 'Campo Usuário é obrigatório',
+    invalidEmail: 'Campo E-mail inválido',
+    requiredEmail: 'Campo E-mail é obrigatório',
     invalidPassword: 'Senha inválida: Pelo menos 6 caracteres',
     requiredPassword: 'Campo Senha é obrigatório',
     required: 'Campo obrigatório',
   );
 
   final authError = AuthErrorStrings(
-      usernameMessage: 'Username Inválido',
-      passwordMessage: 'Password Inválido',
+      credentialsMessage: 'E-mail ou Password Inválido',
       otherErrorMessage: 'Ocorreu um erro desconhecido',
       emailAlreadyInUseMessage: 'Email já registrado',
       invalidEmailMessage: 'Email Inválido',

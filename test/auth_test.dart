@@ -1,7 +1,7 @@
 // import 'package:flutter_project_target/core/base/constants/auth/auth.string.dart';
-// import 'package:flutter_project_target/core/base/dal/storage/storage.interface.dart';
+// import 'package:flutter_project_target/core/base/dal/storage/storage_interface.dart';
 // import 'package:flutter_project_target/core/base/utils/enum.util.dart';
-// import 'package:flutter_project_target/core/resources/auth/mock/dal/datasource/auth.datasource.interface.dart';
+// import 'package:flutter_project_target/core/resources/auth/mock/dal/datasource/fb_authentication_datasource_interface.dart';
 // import 'package:flutter_project_target/features/stores/login_store/xxx-auth_store.dart';
 // import 'package:flutter_test/flutter_test.dart';
 // import 'package:mockito/mockito.dart';
