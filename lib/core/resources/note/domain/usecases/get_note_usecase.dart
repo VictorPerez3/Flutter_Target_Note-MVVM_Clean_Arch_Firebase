@@ -21,11 +21,14 @@ class GetNoteUsecase {
     final note = NoteData.fromJson(noteData!);
     final decryptedTitle = EncryptionUtil.decryptData(note.title);
     final decryptedNoteText = EncryptionUtil.decryptData(note.noteText);
+    final decryptedHashtags = EncryptionUtil.decryptList(note.hashtags);
+    final updatedAt = note.updatedAt;
 
     return Note(
-      id: note.id,
-      title: decryptedTitle,
-      noteText: decryptedNoteText,
-    );
+        id: note.id,
+        title: decryptedTitle,
+        noteText: decryptedNoteText,
+        hashtags: decryptedHashtags,
+        updatedAt: updatedAt);
   }
 }

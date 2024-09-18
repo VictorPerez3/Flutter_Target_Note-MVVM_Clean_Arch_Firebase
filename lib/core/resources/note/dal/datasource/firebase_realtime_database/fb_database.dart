@@ -27,7 +27,11 @@ class FbDatabase with l18nMixin implements FbDatabaseProvider {
       return SaveNoteResponse(
         data: SaveNoteDataResponse(
           noteData: NoteData(
-              id: newIdNote, title: body.title, noteText: body.noteText),
+              id: newIdNote,
+              title: body.title,
+              noteText: body.noteText,
+              hashtags: body.hashtags,
+              updatedAt: body.updatedAt),
         ),
         errors: null,
       );
@@ -51,8 +55,12 @@ class FbDatabase with l18nMixin implements FbDatabaseProvider {
           .update(body.toJson());
       return SaveNoteResponse(
         data: SaveNoteDataResponse(
-          noteData:
-              NoteData(id: noteId, title: body.title, noteText: body.noteText),
+          noteData: NoteData(
+              id: noteId,
+              title: body.title,
+              noteText: body.noteText,
+              hashtags: body.hashtags,
+              updatedAt: body.updatedAt),
         ),
         errors: null,
       );

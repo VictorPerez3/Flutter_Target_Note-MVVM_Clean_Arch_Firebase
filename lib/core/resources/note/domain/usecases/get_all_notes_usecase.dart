@@ -24,12 +24,15 @@ class GetAllNotesUsecase {
       final noteData = NoteData.fromJson(noteJson);
       final decryptedTitle = EncryptionUtil.decryptData(noteData.title);
       final decryptedNoteText = EncryptionUtil.decryptData(noteData.noteText);
+      final decryptedHashtags = EncryptionUtil.decryptList(noteData.hashtags);
+      final updatedAt = noteData.updatedAt;
 
       notes.add(Note(
-        id: noteData.id,
-        title: decryptedTitle,
-        noteText: decryptedNoteText,
-      ));
+          id: noteData.id,
+          title: decryptedTitle,
+          noteText: decryptedNoteText,
+          hashtags: decryptedHashtags,
+          updatedAt: updatedAt));
     }
     return notes;
   }
