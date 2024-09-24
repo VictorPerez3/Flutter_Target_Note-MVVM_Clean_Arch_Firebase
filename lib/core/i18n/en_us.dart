@@ -10,10 +10,7 @@ class EnUsStringsTranslations implements StringsTranslations {
   static const String getLocale = 'en-US';
 
   final loginPage = AuthScreenStrings(
-    titleSignInLabel: 'Target Note',
-    titleSignUpLabel: 'Create \nAccount.',
     completeNameLabel: 'Name',
-    emailLabel: 'E-mail',
     passwordLabel: 'Password',
     repeatPasswordLabel: 'Repeat Password',
     signInButtonLabel: 'Sign In',
@@ -40,7 +37,6 @@ class EnUsStringsTranslations implements StringsTranslations {
   final general = GeneralStrings(
     sucessToast: 'Sucess!',
     privacyPolicyLabel: 'Privacy Policy',
-    privacyPolicyUrlLabel: 'https://www.google.com.br',
   );
 
   final validators = ValidatorsStrings(

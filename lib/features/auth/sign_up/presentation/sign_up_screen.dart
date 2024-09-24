@@ -8,6 +8,7 @@ import '../../../../core/base/mixins/l18n_mixin.dart';
 import '../../../../core/base/mixins/viewmodel_mixin.dart';
 import '../../../../core/base/utils/snackbar_util.dart';
 import '../../../../core/navigation/routes.dart';
+import '../../../../core/resources/auth/domain/constants/auth_screen_constants.dart';
 import '../../../shared/loading/loading_widget.dart';
 import '../../../shared/widgets/auth/auth_text_field_widget.dart';
 import '../../../shared/widgets/general/background_box_decoration_widget.dart';
@@ -63,11 +64,11 @@ class SignUpScreen extends StatelessWidget
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         const SizedBox(height: 100.0),
-                        Align(
+                        const Align(
                           alignment: AlignmentDirectional.centerStart,
                           child: Text(
-                            l18n.strings.loginPage.titleSignUpLabel,
-                            style: const TextStyle(
+                            AuthScreenConstants.titleSignUpLabel,
+                            style: TextStyle(
                               color: Color(0xFF939393),
                               fontSize: 45.0,
                               fontWeight: FontWeight.w400,
@@ -84,7 +85,7 @@ class SignUpScreen extends StatelessWidget
                             ),
                             const SizedBox(height: 32.0),
                             AuthTextField(
-                              labelText: l18n.strings.loginPage.emailLabel,
+                              labelText: AuthScreenConstants.emailLabel,
                               field: viewModel.usernameField,
                             ),
                             const SizedBox(height: 32.0),

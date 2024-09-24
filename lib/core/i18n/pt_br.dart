@@ -11,10 +11,7 @@ class PtBrStringsTranslations implements StringsTranslations {
   static const String getLocale = 'pt-BR';
 
   final loginPage = AuthScreenStrings(
-    titleSignInLabel: 'Target Note',
-    titleSignUpLabel: 'Create \nAccount.',
     completeNameLabel: 'Nome',
-    emailLabel: 'E-mail',
     passwordLabel: 'Senha',
     repeatPasswordLabel: 'Repetir Senha',
     signInButtonLabel: 'Entrar',
@@ -41,7 +38,6 @@ class PtBrStringsTranslations implements StringsTranslations {
   final general = GeneralStrings(
     sucessToast: 'Sucesso!',
     privacyPolicyLabel: 'Política de Privacidade',
-    privacyPolicyUrlLabel: 'https://www.google.com.br',
   );
 
   final validators = ValidatorsStrings(
