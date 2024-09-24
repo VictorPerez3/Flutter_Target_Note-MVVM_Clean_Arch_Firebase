@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/resources/note/domain/entities/note.entity.dart';
+import '../../../../core/resources/note/domain/entities/note_entity.dart';
 import '../../../../core/base/abstractions/custom_exception_interface.dart';
 import '../../../../core/base/mixins/analytics_mixin.dart';
 import '../../../../core/base/mixins/l18n_mixin.dart';

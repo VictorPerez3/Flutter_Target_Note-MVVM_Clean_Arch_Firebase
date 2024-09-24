@@ -1,8 +1,8 @@
 import '../../../base/dal/data/error_data.dart';
 import '../../../base/dal/storage/storage_interface.dart';
 import '../../../base/mixins/l18n_mixin.dart';
-import '../../note/domain/constants/note_errors.constants.dart';
-import '../../note/domain/exceptions/userid_not_found.exception.dart';
+import '../../note/domain/constants/note_errors_constants.dart';
+import '../../note/domain/exceptions/userid_not_found_exception.dart';
 import '../domain/constants/auth_storage_constants.dart';
 import '../domain/entities/user_entity.dart';
 import 'datasource/firebase_authentication/fb_authentication_datasource_interface.dart';

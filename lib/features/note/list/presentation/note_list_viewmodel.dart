@@ -4,7 +4,7 @@ import 'package:flutter_project_target/core/resources/note/domain/usecases/get_a
 
 import '../../../../core/base/abstractions/field_interface.dart';
 import '../../../../core/base/abstractions/viewmodel_interface.dart';
-import '../../../../core/resources/note/domain/entities/note.entity.dart';
+import '../../../../core/resources/note/domain/entities/note_entity.dart';
 import '../../../../core/resources/note/domain/usecases/delete_note_usecase.dart';
 
 class NoteListViewModel extends IViewModel {

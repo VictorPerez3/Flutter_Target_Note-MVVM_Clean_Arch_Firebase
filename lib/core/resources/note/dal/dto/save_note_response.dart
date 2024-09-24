@@ -1,9 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../../../base/dal/data/error_data.dart';
-import '../data/note.data.dart';
+import '../data/note_data.dart';
 
-part 'save_note.response.g.dart';
+part 'save_note_response.g.dart';
 
 @JsonSerializable()
 class SaveNoteResponse {
