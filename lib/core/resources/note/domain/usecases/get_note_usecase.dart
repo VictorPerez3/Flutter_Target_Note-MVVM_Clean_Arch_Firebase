@@ -1,8 +1,8 @@
 import '../../../../base/utils/encrypt_util.dart';
 import '../../../auth/dal/auth_repository.dart';
-import '../../dal/data/note.data.dart';
+import '../../dal/data/note_data.dart';
 import '../../dal/datasource/firebase_realtime_database/fb_database_provider.dart';
-import '../entities/note.entity.dart';
+import '../entities/note_entity.dart';
 
 class GetNoteUsecase {
   final FbDatabaseProvider firebaseDatabase;
@@ -22,13 +22,14 @@ class GetNoteUsecase {
     final decryptedTitle = EncryptionUtil.decryptData(note.title);
     final decryptedNoteText = EncryptionUtil.decryptData(note.noteText);
     final decryptedHashtags = EncryptionUtil.decryptList(note.hashtags);
-    final updatedAt = note.updatedAt;
 
     return Note(
         id: note.id,
         title: decryptedTitle,
         noteText: decryptedNoteText,
         hashtags: decryptedHashtags,
-        updatedAt: updatedAt);
+        updatedAt: note.updatedAt,
+        backgroundColor: note.backgroundColor,
+        alignmentText: note.alignmentText);
   }
 }

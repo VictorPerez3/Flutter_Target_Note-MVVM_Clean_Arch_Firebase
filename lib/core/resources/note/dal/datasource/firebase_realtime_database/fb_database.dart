@@ -1,13 +1,13 @@
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter_project_target/core/resources/note/domain/exceptions/note_not_found.exception.dart';
+import 'package:flutter_project_target/core/resources/note/domain/exceptions/note_not_found_exception.dart';
 
 import '../../../../../base/dal/data/error_data.dart';
 import '../../../../../base/mixins/l18n_mixin.dart';
-import '../../../domain/constants/note_errors.constants.dart';
-import '../../../domain/exceptions/operation_note_fail.exception.dart';
-import '../../data/note.data.dart';
-import '../../dto/save_note.body.dart';
-import '../../dto/save_note.response.dart';
+import '../../../domain/constants/note_errors_constants.dart';
+import '../../../domain/exceptions/operation_note_fail_exception.dart';
+import '../../data/note_data.dart';
+import '../../dto/save_note_body.dart';
+import '../../dto/save_note_response.dart';
 import 'fb_database_provider.dart';
 
 class FbDatabase with l18nMixin implements FbDatabaseProvider {
@@ -31,7 +31,9 @@ class FbDatabase with l18nMixin implements FbDatabaseProvider {
               title: body.title,
               noteText: body.noteText,
               hashtags: body.hashtags,
-              updatedAt: body.updatedAt),
+              updatedAt: body.updatedAt,
+              backgroundColor: body.backgroundColor,
+              alignmentText: body.alignmentText),
         ),
         errors: null,
       );
@@ -60,7 +62,9 @@ class FbDatabase with l18nMixin implements FbDatabaseProvider {
               title: body.title,
               noteText: body.noteText,
               hashtags: body.hashtags,
-              updatedAt: body.updatedAt),
+              updatedAt: body.updatedAt,
+              backgroundColor: body.backgroundColor,
+              alignmentText: body.alignmentText),
         ),
         errors: null,
       );

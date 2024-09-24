@@ -1,6 +1,6 @@
 import 'package:encrypt/encrypt.dart' as encrypt;
 import '../../../config.dart';
-import '../../resources/note/domain/exceptions/decrypt_fail.exception.dart';
+import '../../resources/note/domain/exceptions/decrypt_fail_exception.dart';
 import '../dal/data/error_data.dart';
 
 class EncryptionUtil {

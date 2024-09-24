@@ -1,5 +1,5 @@
-import '../../dto/save_note.body.dart';
-import '../../dto/save_note.response.dart';
+import '../../dto/save_note_body.dart';
+import '../../dto/save_note_response.dart';
 
 abstract class FbDatabaseProvider {
 
