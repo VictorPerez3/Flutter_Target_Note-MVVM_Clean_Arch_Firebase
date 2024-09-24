@@ -4,7 +4,7 @@ import '../../features/bindings.dart';
 import '../../features/screens.dart';
 import '../../initializer.dart';
 import '../base/utils/entry_provider_util.dart';
-import '../resources/note/domain/entities/note.entity.dart';
+import '../resources/note/domain/entities/note_entity.dart';
 import 'routes.dart';
 
 class Navigation {
@@ -46,10 +46,17 @@ class Navigation {
         path: Routes.noteDetails,
         name: Routes.noteDetails,
         builder: (context, state) {
-          final Note? note = state.extra as Note?;
+
+          final extraData = state.extra as Map<String, dynamic>;
+          final Note? note = extraData['note'] as Note?;
+          final String noteTypeMode = extraData['noteTypeMode'] as String;
+
           return EntryProvider(
             screenName: Routes.noteDetails,
-            onBuild: (_) => NoteDetailsScreen(note: note),
+            onBuild: (_) => NoteDetailsScreen(
+              note: note,
+              noteTypeMode: noteTypeMode,
+            ),
             onInit: (_) => NoteDetailsViewModelBinding.inject(),
             onDispose: (_) => NoteDetailsViewModelBinding.dispose(),
           );

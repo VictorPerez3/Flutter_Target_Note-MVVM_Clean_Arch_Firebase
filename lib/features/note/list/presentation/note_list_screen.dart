@@ -9,7 +9,7 @@ import '../../../../core/base/mixins/l18n_mixin.dart';
 import '../../../../core/base/mixins/viewmodel_mixin.dart';
 import '../../../../core/base/utils/snackbar_util.dart';
 import '../../../../core/navigation/routes.dart';
-import '../../../../core/resources/note/domain/entities/note.entity.dart';
+import '../../../../core/resources/note/domain/entities/note_entity.dart';
 import '../../../shared/loading/loading_widget.dart';
 import '../../../shared/widgets/general/background_box_decoration_widget.dart';
 import '../../../shared/widgets/note/note_list_widget.dart';
@@ -41,7 +41,13 @@ class NoteListScreen extends StatelessWidget
       FocusScope.of(context).unfocus();
       await tag.onListToDetailEvent("List screen to Details Screen");
       if (context.mounted) {
-        context.goNamed(Routes.noteDetails, extra: note);
+        context.goNamed(
+          Routes.noteDetails,
+          extra: {
+            'note': note,
+            'noteTypeMode': viewModel.noteTypeMode.value,
+          },
+        );
       }
     } on CustomException catch (err) {
       if (context.mounted) showErrorSnackbar(context: context, err: err);
@@ -89,12 +95,12 @@ class NoteListScreen extends StatelessWidget
                     onPressed: () =>
                         _goNoteDetails(context: context, note: null),
                     style: ButtonStyle(
-                      backgroundColor:
-                          WidgetStateProperty.all<Color>(Colors.green),
+                      backgroundColor: WidgetStateProperty.all<Color>(
+                          const Color(0xFF25232A)),
                     ),
                     child: Text(
                       l18n.strings.notePage.newRegisterButton,
-                      style: const TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Color(0xFFD0BCFF)),
                     ),
                   ),
                 ),
