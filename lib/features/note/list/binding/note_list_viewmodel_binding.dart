@@ -10,7 +10,11 @@ import '../../../../core/resources/auth/dal/datasource/firebase_authentication/f
 import '../../../../core/resources/auth/domain/usecases/logout_usecase.dart';
 import '../../../../core/resources/note/dal/datasource/firebase_realtime_database/fb_database_provider.dart';
 import '../../../../core/resources/note/domain/usecases/delete_note_usecase.dart';
-import '../../../../core/resources/note/domain/usecases/get_all_notes_usecase.dart';
+import '../../../../core/resources/note/domain/usecases/edit_note_usecase.dart';
+import '../../../../core/resources/note/domain/usecases/get_all_hidden_notes_usecase.dart';
+import '../../../../core/resources/note/domain/usecases/get_unhidden_notes_by_notetype_usecase.dart';
+import '../../../../core/resources/note/domain/usecases/get_user_info_name_usecase.dart';
+import '../../../../core/resources/note/domain/usecases/save_note_usecase.dart';
 import '../presentation/note_list_viewmodel.dart';
 import '../presentation/tag/note_list_tag.dart';
 
@@ -38,10 +42,22 @@ NoteListViewModel makeNoteListViewModel() {
     authDataSource: authDatasource,
   );
 
-  final deleteNoteUsecase = DeleteNoteUsecase(
+  final saveNoteUsecase = SaveNoteUseCase(
       firebaseDatabase: firebaseDatabase, authRepository: authRepository);
 
-  final getAllNotesUsecase = GetAllNotesUsecase(
+  final editNoteUsecase = EditNoteUseCase(
+      firebaseDatabase: firebaseDatabase, authRepository: authRepository);
+
+  final deleteNoteUsecase = DeleteNoteUseCase(
+      firebaseDatabase: firebaseDatabase, authRepository: authRepository);
+
+  final getUnhiddenNotesByNoteTypeUseCase = GetUnhiddenNotesByNoteTypeUseCase(
+      firebaseDatabase: firebaseDatabase, authRepository: authRepository);
+
+  final getAllHiddenNotesUseCase = GetAllHiddenNotesUseCase(
+      firebaseDatabase: firebaseDatabase, authRepository: authRepository);
+
+  final getUserInfoNameUsecase = GetUserInfoNameUsecase(
       firebaseDatabase: firebaseDatabase, authRepository: authRepository);
 
   final logoutUsecase = LogoutUsecase(authRepository: authRepository);
@@ -49,9 +65,14 @@ NoteListViewModel makeNoteListViewModel() {
   return NoteListViewModel(
       titleField: makeTitleField(),
       noteTextField: makeNoteTextField(),
+      userInfoNameTextField: makeUserInfoNameTextField(),
       deleteNoteUsecase: deleteNoteUsecase,
-      getAllNotesUsecase: getAllNotesUsecase,
-      logoutUsecase: logoutUsecase);
+      getUnhiddenNotesByNoteTypeUseCase: getUnhiddenNotesByNoteTypeUseCase,
+      getAllHiddenNotesUseCase: getAllHiddenNotesUseCase,
+      getUserInfoNameUsecase: getUserInfoNameUsecase,
+      logoutUsecase: logoutUsecase,
+      saveNoteUsecase: saveNoteUsecase,
+      editNoteUsecase: editNoteUsecase);
 }
 
 NoteListTag makeNoteListTag() {
@@ -65,6 +86,12 @@ IField<String> makeTitleField() {
 }
 
 IField<String> makeNoteTextField() {
+  return TextReactFieldModel(
+    validators: FieldValidatorBuilder<String>().required().build(),
+  );
+}
+
+IField<String> makeUserInfoNameTextField() {
   return TextReactFieldModel(
     validators: FieldValidatorBuilder<String>().required().build(),
   );

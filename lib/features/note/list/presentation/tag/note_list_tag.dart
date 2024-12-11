@@ -18,4 +18,16 @@ class NoteListTag extends AnalyticsBase {
   Future<void> onDeleteNoteEvent(String label) async {
     sendEvent(event: AnalyticsEventsEnum.deleteNote, label: label);
   }
+
+  Future<void> onDuplicateNoteEvent(String label) async {
+    sendEvent(event: AnalyticsEventsEnum.duplicateNote, label: label);
+  }
+
+  Future<void> onHideNoteEvent(String label) async {
+    sendEvent(event: AnalyticsEventsEnum.hideNote, label: label);
+  }
+
+  Future<void> onUnhideNoteEvent(String label) async {
+    sendEvent(event: AnalyticsEventsEnum.unhideNote, label: label);
+  }
 }
