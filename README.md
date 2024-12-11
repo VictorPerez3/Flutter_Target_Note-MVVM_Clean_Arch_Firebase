@@ -21,7 +21,6 @@ Normalmente utilizada em projetos mais robustos e complexos, apresenta vantagens
 Nesse projeto em especifico, um projeto pequeno e sem muita complexidade, a utilização de MVVM com Clean Architecture seria um "Over Engineering" proposital visando o meu aprendizado em uma arquitetura mais complexa.
 
 ### 🛠️ Armazenamento local com Get_Storage
-Solução de armazenamento leve e rápida que simplifica o armazenamento local de dados.
 
 ### 🛠️ Gerenciamento de estado nativo com Value Notifier + Get_it 
 
@@ -34,13 +33,11 @@ Solução de armazenamento leve e rápida que simplifica o armazenamento local d
 ### 🛠️ Firebase Realtime DataBase
 
 ### 🛠️ Criptografia (via lib encrypt)
-Criptografia AES com preenchimento PKCS7 nos dados armazenados.
 
 ### 🛠️ Firebase Crashlytics
 Durante a execução do app, se ocorrer um erro não tratado, o Crashlytics registrará o erro. Isso inclui informações como a stack trace, mensagens de erro e outras informações customizadas. Através do uso de abstrações e injeção de dependências na implementação do crashlytics, o app consegue registrar e reportar erros de maneira eficaz e segregando por ambientes de execução.
 
 ### 🛠️ Firebase Analytics
-Registro de eventos no aplicativo.
 
 ### 🛠️ Push Notifications com Firebase Cloud Messaging
 
@@ -56,15 +53,16 @@ Registro de eventos no aplicativo.
 
 ### 1) Splash Page 🖼️
 
-<img src="https://github.com/VictorPerez3/Flutter_Target_Note-MVVM_Clean_Arch_Firebase/blob/main/prints-doc/splash_screen.jpg" alt="Splash Screen" width="200"/>
-
 ### 2) Sign In/Sign Up Page 🔒
 Pagina de autenticação, onde inclui:
 1. Login e Criação de usuário.
 2. Validação de campos: necessario para ativar o botão de autenticação.
 3. Firebase Authentication como API.
 
-<img src="https://github.com/VictorPerez3/Flutter_Target_Note-MVVM_Clean_Arch_Firebase/blob/main/prints-doc/splash_screen.jpg" alt="Splash Screen" width="200"/>
+<div style="display: flex; gap: 10px;">
+  <img src="https://github.com/VictorPerez3/Flutter_Target_Note-MVVM_Clean_Arch_Firebase/blob/develop/assets/images/documentation/doc-sign-in.jpg" alt="Sign In Screen" width="200"/>
+  <img src="https://github.com/VictorPerez3/Flutter_Target_Note-MVVM_Clean_Arch_Firebase/blob/develop/assets/images/documentation/doc-sign-up.jpg" alt="Sign Up Screen" width="200"/>
+</div>
 
 ### 3) Note List Page 📋
 A tela apresenta uma lista CRUD de notas, com suas respectivas funcionalidades.
@@ -73,12 +71,20 @@ A tela apresenta uma lista CRUD de notas, com suas respectivas funcionalidades.
 3. Criptografia: Utilizando a lib encrypt, todas as notas são criptografadas no envio ao banco de dados (Firebase Realtime Database).
 4. Exceptions são sinalizadas através de SnackBar personalizada.
 
-<img src="https://github.com/VictorPerez3/Flutter_Target_Note-MVVM_Clean_Arch_Firebase/blob/main/prints-doc/splash_screen.jpg" alt="Splash Screen" width="200"/>
+<div style="display: flex; gap: 10px;">
+  <img src="https://github.com/VictorPerez3/Flutter_Target_Note-MVVM_Clean_Arch_Firebase/blob/develop/assets/images/documentation/doc-geral-list.jpg" alt="Genera - Note List Screen" width="200"/>
+  <img src="https://github.com/VictorPerez3/Flutter_Target_Note-MVVM_Clean_Arch_Firebase/blob/develop/assets/images/documentation/doc-contas-pessoais-list.jpg" alt="Personal Account - Note List Screen" width="200"/>
+  <img src="https://github.com/VictorPerez3/Flutter_Target_Note-MVVM_Clean_Arch_Firebase/blob/develop/assets/images/documentation/doc-notas-ocultas-list.jpg" alt="Hidden Note - Note List Screen" width="200"/>
+</div>
 
 ### 4) Note Details Page 🗒️
 A tela apresenta os detalhes com Criação e Edição de Nota : Titulo, conteudo, cor de fundo, alinhamento de texto do conteudo, etc.
 
-<img src="https://github.com/VictorPerez3/Flutter_Target_Note-MVVM_Clean_Arch_Firebase/blob/main/prints-doc/splash_screen.jpg" alt="Splash Screen" width="200"/>
+<div style="display: flex; gap: 10px;">
+  <img src="https://github.com/VictorPerez3/Flutter_Target_Note-MVVM_Clean_Arch_Firebase/blob/develop/assets/images/documentation/doc-unfocus-details.jpg" alt="Unfocus - Note List Details" width="200"/>
+  <img src="https://github.com/VictorPerez3/Flutter_Target_Note-MVVM_Clean_Arch_Firebase/blob/develop/assets/images/documentation/doc-bottom-sheet-enabled-details.jpg" alt="Bottom Sheet Enabled - Note List Details" width="200"/>
+  <img src="https://github.com/VictorPerez3/Flutter_Target_Note-MVVM_Clean_Arch_Firebase/blob/develop/assets/images/documentation/doc-bottom-sheet-disabled-details.jpg.jpg" alt="Bottom Sheet Disabled - Note List Details" width="200"/>
+</div>
 
 # 4 - Passos para clonar, configurar e executar o App 📜
 ### 1) Clonando o repositório através do terminal
