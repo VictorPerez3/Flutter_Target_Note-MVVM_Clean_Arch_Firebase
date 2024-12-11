@@ -5,7 +5,11 @@ class DateTimeUtil {
     return DateTime.now();
   }
 
-  static String formatDate(DateTime date) {
+  static String formatDateNoteDetails(DateTime date) {
     return DateFormat('EEEE, MMMM d, y').format(date);
+  }
+
+  static String formatDateNoteMenu(DateTime date) {
+    return DateFormat('MMM. dd, yyyy').format(date);
   }
 }
