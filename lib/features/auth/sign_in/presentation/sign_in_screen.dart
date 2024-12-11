@@ -38,7 +38,7 @@ class SignInScreen extends StatelessWidget
   void goSignUp(BuildContext context) async {
     FocusScope.of(context).unfocus();
     if (context.mounted) {
-      context.goNamed(Routes.signUp);
+      context.pushNamed(Routes.signUp);
     }
   }
 

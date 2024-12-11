@@ -6,9 +6,11 @@ import '../../../../core/resources/auth/domain/constants/auth_errors_constants.d
 import '../../../../core/resources/auth/domain/exceptions/passwords_do_not_match_exception.dart';
 import '../../../../core/base/abstractions/viewmodel_interface.dart';
 import '../../../../core/resources/auth/domain/usecases/sign_up_usecase.dart';
+import '../../../../core/resources/note/domain/usecases/save_user_info_name_usecase.dart';
 
 class SignUpViewModel extends IViewModel with l18nMixin {
   final SignUpUsecase _signUpUsecase;
+  final SaveUserInfoNameUsecase saveUserInfoNameUsecase;
   final IField<String> completeNameField;
   final IField<String> usernameField;
   final IField<String> passwordField;
@@ -20,6 +22,7 @@ class SignUpViewModel extends IViewModel with l18nMixin {
     required this.usernameField,
     required this.passwordField,
     required this.repeatPasswordField,
+    required this.saveUserInfoNameUsecase,
     required SignUpUsecase signUpUsecase,
   }) : _signUpUsecase = signUpUsecase {
     _setupReactionsSignUp();
@@ -53,6 +56,10 @@ class SignUpViewModel extends IViewModel with l18nMixin {
         email: usernameField.valueNotifier.value!,
         password: passwordField.valueNotifier.value!,
       );
+
+      await saveUserInfoNameUsecase.saveUserInfoName(
+          userInfoName: completeNameField.valueNotifier.value!);
+
       return userId;
     } finally {
       loading.isLoading = false;
