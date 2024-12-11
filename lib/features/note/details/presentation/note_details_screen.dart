@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_target/features/note/details/presentation/tag/note_details_tag.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
@@ -11,8 +10,10 @@ import '../../../../core/base/mixins/viewmodel_mixin.dart';
 import '../../../../core/base/utils/date_time_util.dart';
 import '../../../../core/base/utils/snackbar_util.dart';
 import '../../../../core/navigation/routes.dart';
+import '../../../../core/resources/note/domain/constants/note_types_and_hide_constants.dart';
 import '../../../../core/resources/note/domain/entities/note_entity.dart';
 import '../../../shared/loading/loading_widget.dart';
+import '../../../shared/widgets/note/arrow_back_icon_widget.dart';
 import '../../../shared/widgets/note/bottom_sheet_widget.dart';
 import 'note_details_viewmodel.dart';
 
@@ -37,26 +38,38 @@ class NoteDetailsScreen extends StatelessWidget
         note: note,
         onSaveSuccess: () {
           tag.onSaveNoteEvent(l18n.strings.notePage.addItemToast);
-          showSuccessSnackbar(
-            context: context,
-            title: l18n.strings.general.sucessToast,
-            message: l18n.strings.notePage.addItemToast,
-          );
         },
         onEditSuccess: () {
           tag.onEditNoteEvent(l18n.strings.notePage.editItemToast);
-          showSuccessSnackbar(
-            context: context,
-            title: l18n.strings.general.sucessToast,
-            message: l18n.strings.notePage.editItemToast,
-          );
         },
         onError: (err) {
           showErrorSnackbar(context: context, err: err as CustomException);
         },
       );
       tag.onDetailToListEvent("Details screen to List Screen");
-      context.goNamed(Routes.noteList);
+      context.goNamed(Routes.noteList,
+          extra: viewModel.getNoteTypeButtonByNoteList(note: note));
+    }
+  }
+
+  String convertNoteTypeLabel({required String noteType}) {
+    switch (noteType) {
+      case NoteTypesAndHideConstants.generalNotes:
+        return l18n.strings.notePage.generalNotesDetailsLabel;
+      case NoteTypesAndHideConstants.personalAccounts:
+        return l18n.strings.notePage.personalAccountsDetailsLabel;
+      case NoteTypesAndHideConstants.bankNotes:
+        return l18n.strings.notePage.bankNotesDetailsLabel;
+      default:
+        return l18n.strings.notePage.generalNotesDetailsLabel;
+    }
+  }
+
+  String getNoteTypeLabel({required Note? note}) {
+    if (note == null) {
+      return convertNoteTypeLabel(noteType: noteTypeMode);
+    } else {
+      return convertNoteTypeLabel(noteType: note.noteType);
     }
   }
 
@@ -90,10 +103,14 @@ class NoteDetailsScreen extends StatelessWidget
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      arrowBackIcon(
-                                          context: context, note: note),
+                                      ArrowBackIcon(
+                                        onPressed: () {
+                                          handleBack(
+                                              context: context, note: note);
+                                        },
+                                      ),
                                       Text(
-                                        viewModel.getNoteTypeLabel(),
+                                        getNoteTypeLabel(note: note),
                                         style: const TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w500,
@@ -132,8 +149,8 @@ class NoteDetailsScreen extends StatelessWidget
                                   ),
                                   Text(
                                     note?.updatedAt == null
-                                        ? 'Created at ${DateTimeUtil.formatDate(DateTimeUtil.getCurrentDateTime())}'
-                                        : 'Updated at ${DateTimeUtil.formatDate(note!.updatedAt)}',
+                                        ? '${l18n.strings.notePage.createdAtLabel} ${DateTimeUtil.formatDateNoteDetails(DateTimeUtil.getCurrentDateTime())}'
+                                        : '${l18n.strings.notePage.updatedAtLabel} ${DateTimeUtil.formatDateNoteDetails(note!.updatedAt)}',
                                     maxLines: 1,
                                     style: const TextStyle(
                                       color: Color(0xFF79747E),
@@ -198,28 +215,6 @@ class NoteDetailsScreen extends StatelessWidget
               },
             ),
           );
-        },
-      ),
-    );
-  }
-
-  Widget arrowBackIcon({required BuildContext context, required Note? note}) {
-    return Container(
-      width: 50,
-      height: 40,
-      decoration: BoxDecoration(
-        color: const Color(0xFF25232A),
-        shape: BoxShape.rectangle,
-        borderRadius: BorderRadius.circular(100),
-      ),
-      child: IconButton(
-        icon: SvgPicture.asset(
-          'assets/icons/back-icon.svg',
-          width: 18,
-          height: 18,
-        ),
-        onPressed: () {
-          handleBack(context: context, note: note);
         },
       ),
     );
