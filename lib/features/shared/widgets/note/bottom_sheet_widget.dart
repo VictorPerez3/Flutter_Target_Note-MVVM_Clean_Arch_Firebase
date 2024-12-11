@@ -82,11 +82,11 @@ class BottomSheetWidget extends StatelessWidget
                             fontWeight: FontWeight.w300,
                           ),
                         ),
-                        _buildColorCircle(const Color(0xFFE4E4E4)),
-                        _buildColorCircle(const Color(0xFF1C1B1F)),
-                        _buildColorCircle(const Color(0xFFD0BCFF)),
-                        _buildColorCircle(const Color(0xFF5EB763)),
-                        _buildColorCircle(const Color(0xFFD75550)),
+                        _buttonColorCircle(const Color(0xFFFEA289)),
+                        _buttonColorCircle(const Color(0xFFFFC57B)),
+                        _buttonColorCircle(const Color(0xFFE2EB97)),
+                        _buttonColorCircle(const Color(0xFF76D9E5)),
+                        _buttonColorCircle(const Color(0xFFC888CF)),
                       ],
                     ),
                   ),
@@ -106,13 +106,13 @@ class BottomSheetWidget extends StatelessWidget
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _buildAlignmentIcon(
+                        _buttonAlignmentIcon(
                             'assets/icons/format-align-left-icon.svg',
                             TextAlign.left),
-                        _buildAlignmentIcon(
+                        _buttonAlignmentIcon(
                             'assets/icons/format-align-justify-icon.svg',
                             TextAlign.center),
-                        _buildAlignmentIcon(
+                        _buttonAlignmentIcon(
                             'assets/icons/format-align-right-icon.svg',
                             TextAlign.right),
                       ],
@@ -127,26 +127,34 @@ class BottomSheetWidget extends StatelessWidget
     );
   }
 
-  Widget _buildColorCircle(Color color) {
+  Widget _buttonColorCircle(Color color) {
     return ValueListenableBuilder<Color>(
       valueListenable: viewModel.selectedColor,
       builder: (context, selectedColor, child) {
-        return InkWell(
-          onTap: () {
-            tag.onChangeBackgroundColorNoteEvent(
-                'Change Background Color Note');
-            viewModel.changeBackgroundColor(color);
-          },
-          child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 8.0),
-            width: 24,
-            height: 24,
-            decoration: BoxDecoration(
-              color: color,
-              shape: BoxShape.circle,
-              border: Border.all(
-                color: selectedColor == color ? Colors.blue : Colors.grey,
-                width: selectedColor == color ? 2.0 : 1.0,
+        return Material(
+          elevation: 4.0,
+          shape: const CircleBorder(),
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: () {
+              tag.onChangeBackgroundColorNoteEvent(
+                  'Change Background Color Note');
+              viewModel.changeBackgroundColor(color);
+            },
+            customBorder: const CircleBorder(),
+            splashColor: Colors.white12,
+            highlightColor: Colors.white10,
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 8.0),
+              width: 24,
+              height: 24,
+              decoration: BoxDecoration(
+                color: color,
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: selectedColor == color ? Colors.blue : Colors.grey,
+                  width: selectedColor == color ? 2.0 : 1.0,
+                ),
               ),
             ),
           ),
@@ -155,7 +163,7 @@ class BottomSheetWidget extends StatelessWidget
     );
   }
 
-  Widget _buildAlignmentIcon(String assetPath, TextAlign align) {
+  Widget _buttonAlignmentIcon(String assetPath, TextAlign align) {
     return ValueListenableBuilder<TextAlign>(
       valueListenable: viewModel.selectedTextAlign,
       builder: (context, selectedAlign, child) {
