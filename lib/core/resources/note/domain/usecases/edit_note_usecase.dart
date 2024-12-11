@@ -9,11 +9,11 @@ import '../../dal/dto/save_note_body.dart';
 import '../../dal/mappers/note_mapper.dart';
 import '../entities/note_entity.dart';
 
-class EditNoteUsecase {
+class EditNoteUseCase {
   final FbDatabaseProvider firebaseDatabase;
   final AuthRepository authRepository;
 
-  const EditNoteUsecase(
+  const EditNoteUseCase(
       {required this.firebaseDatabase, required this.authRepository});
 
   Future<Note> editNote({
@@ -21,20 +21,21 @@ class EditNoteUsecase {
     required String noteType,
     required String title,
     required String noteText,
-    required List<String> hashtags,
+    required bool hide,
     required Color backgroundColor,
     required TextAlign alignmentText,
   }) async {
     final noteTextEncrypt = EncryptionUtil.encryptData(noteText);
     final titleEncrypt = EncryptionUtil.encryptData(title);
-    final hashtagsEncrypt = EncryptionUtil.encryptList(hashtags);
+    final noteTypeEncrypt = EncryptionUtil.encryptData(noteType);
     final updatedAt = DateTimeUtil.getCurrentDateTime();
 
     final body = SaveNoteBody(
+      noteType: noteTypeEncrypt,
       title: titleEncrypt,
       noteText: noteTextEncrypt,
-      hashtags: hashtagsEncrypt,
       updatedAt: updatedAt,
+      hide: hide,
       backgroundColor: backgroundColor,
       alignmentText: alignmentText,
     );
@@ -42,7 +43,7 @@ class EditNoteUsecase {
     final userId = await authRepository.getUserId();
 
     final response = await firebaseDatabase.editNote(
-        body: body, userId: userId, noteId: noteId, noteType: noteType);
+        body: body, userId: userId, noteId: noteId);
 
     final editedNote = NoteMapper.toModel(response.data!.noteData);
     return editedNote;
