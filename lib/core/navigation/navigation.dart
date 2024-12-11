@@ -35,18 +35,20 @@ class Navigation {
       GoRoute(
         path: Routes.noteList,
         name: Routes.noteList,
-        builder: (context, state) => EntryProvider(
-          screenName: Routes.noteList,
-          onBuild: (_) => const NoteListScreen(),
-          onInit: (_) => NoteListViewModelBinding.inject(),
-          onDispose: (_) => NoteListViewModelBinding.dispose(),
-        ),
+        builder: (context, state) {
+          final String? noteTypeMode = state.extra as String?;
+          return EntryProvider(
+            screenName: Routes.noteList,
+            onBuild: (_) => NoteListScreen(initialNoteTypeMode: noteTypeMode),
+            onInit: (_) => NoteListViewModelBinding.inject(),
+            onDispose: (_) => NoteListViewModelBinding.dispose(),
+          );
+        },
       ),
       GoRoute(
         path: Routes.noteDetails,
         name: Routes.noteDetails,
         builder: (context, state) {
-
           final extraData = state.extra as Map<String, dynamic>;
           final Note? note = extraData['note'] as Note?;
           final String noteTypeMode = extraData['noteTypeMode'] as String;
