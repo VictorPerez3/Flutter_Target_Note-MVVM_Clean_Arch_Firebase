@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project_target/core/resources/auth/domain/constants/auth_screen_constants.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:flutter_project_target/features/auth/sign_in/presentation/tag/sign_in_tag.dart';
@@ -37,7 +38,7 @@ class SignInScreen extends StatelessWidget
   void goSignUp(BuildContext context) async {
     FocusScope.of(context).unfocus();
     if (context.mounted) {
-      context.goNamed(Routes.signUp);
+      context.pushNamed(Routes.signUp);
     }
   }
 
@@ -60,9 +61,9 @@ class SignInScreen extends StatelessWidget
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const SizedBox(height: 100.0),
-                        Text(
-                          l18n.strings.loginPage.titleSignInLabel,
-                          style: const TextStyle(
+                        const Text(
+                          AuthScreenConstants.titleSignInLabel,
+                          style: TextStyle(
                             color: Color(0xFF939393),
                             fontSize: 54.0,
                             fontFamily: 'vibur',
@@ -74,7 +75,7 @@ class SignInScreen extends StatelessWidget
                         Column(
                           children: [
                             AuthTextField(
-                              labelText: l18n.strings.loginPage.emailLabel,
+                              labelText: AuthScreenConstants.emailLabel,
                               field: viewModel.emailField,
                             ),
                             const SizedBox(height: 32.0),

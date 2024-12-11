@@ -11,10 +11,7 @@ class PtBrStringsTranslations implements StringsTranslations {
   static const String getLocale = 'pt-BR';
 
   final loginPage = AuthScreenStrings(
-    titleSignInLabel: 'Target Note',
-    titleSignUpLabel: 'Create \nAccount.',
     completeNameLabel: 'Nome',
-    emailLabel: 'E-mail',
     passwordLabel: 'Senha',
     repeatPasswordLabel: 'Repetir Senha',
     signInButtonLabel: 'Entrar',
@@ -25,6 +22,8 @@ class PtBrStringsTranslations implements StringsTranslations {
   );
 
   final notePage = NoteScreenStrings(
+      titleUserInfoNameLabel: 'Olá, ',
+      titleScreenLabel: 'Suas Notas',
       removeItemToast: 'Nota removida',
       addItemToast: 'Nota adicionada',
       editItemToast: 'Nota editada',
@@ -32,16 +31,25 @@ class PtBrStringsTranslations implements StringsTranslations {
       textLabelModal: 'Detalhes da nota',
       titleLabelModal: 'Título',
       noteTextLabelModal: 'Texto',
+      createdAtLabel: 'Created at ',
+      updatedAtLabel: 'Updated at ',
       saveButton: 'Salvar',
       cancelButton: 'Cancelar',
-      notesButtonSegment: 'Notas',
+      generalNotesButtonSegment: 'Geral',
       bankNotesButtonSegment: 'Notas\nBancarias',
-      personalAccountsButtonSegment: 'Contas\nPessoais');
+      personalAccountsButtonSegment: 'Contas\nPessoais',
+      hiddenNotesButtonSegment: 'Notas\nOcultas',
+      generalNotesDetailsLabel: '#Geral',
+      bankNotesDetailsLabel: '#NotasBancarias',
+      personalAccountsDetailsLabel: '#ContasPessoais',
+      deleteMenuLabel: 'Apagar',
+      duplicateMenuLabel: 'Duplicar',
+      hideMenuLabel: 'Ocultar',
+      unhideMenuLabel: 'Mostrar');
 
   final general = GeneralStrings(
     sucessToast: 'Sucesso!',
     privacyPolicyLabel: 'Política de Privacidade',
-    privacyPolicyUrlLabel: 'https://www.google.com.br',
   );
 
   final validators = ValidatorsStrings(

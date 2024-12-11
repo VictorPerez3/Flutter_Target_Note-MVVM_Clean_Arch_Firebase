@@ -1,108 +1,165 @@
 import 'package:flutter/material.dart';
-
-import '../../../../core/resources/note/domain/entities/note.entity.dart';
-import '../../../../core/base/abstractions/custom_exception_interface.dart';
-import '../../../../core/base/mixins/analytics_mixin.dart';
 import '../../../../core/base/mixins/l18n_mixin.dart';
-import '../../../../core/base/utils/snackbar_util.dart';
+import '../../../../core/base/utils/date_time_util.dart';
+import '../../../../core/resources/note/domain/constants/note_types_and_hide_constants.dart';
+import '../../../../core/resources/note/domain/entities/note_entity.dart';
 import '../../../note/list/presentation/note_list_viewmodel.dart';
-import '../../../note/list/presentation/tag/note_list_tag.dart';
 
-class NoteList extends StatelessWidget
-    with l18nMixin, AnalyticsMixin<NoteListTag> {
+class NoteList extends StatelessWidget with l18nMixin {
   final List<Note> notes;
   final NoteListViewModel controller;
   final Function({Note? note, required BuildContext context}) goNoteDetails;
+  final void Function(Note note, Offset globalPosition, Size size) onShowMenu;
 
   const NoteList({
     super.key,
     required this.notes,
     required this.controller,
     required this.goNoteDetails,
+    required this.onShowMenu,
   });
 
-  void handleDeleteNote({
-    required Note note,
-    required NoteListViewModel noteController,
-    required BuildContext context,
-  }) async {
-    try {
-      tag.onDeleteNoteEvent(l18n.strings.notePage.removeItemToast);
-      noteController.removeNote(note.id);
-      if (context.mounted) {
-        showSuccessSnackbar(
-            context: context,
-            title: l18n.strings.general.sucessToast,
-            message: l18n.strings.notePage.removeItemToast);
-      }
-    } on CustomException catch (err) {
-      if (context.mounted) showErrorSnackbar(context: context, err: err);
+  String convertNoteTypeLabel({required String noteType}) {
+    switch (noteType) {
+      case NoteTypesAndHideConstants.generalNotes:
+        return l18n.strings.notePage.generalNotesDetailsLabel;
+      case NoteTypesAndHideConstants.personalAccounts:
+        return l18n.strings.notePage.personalAccountsDetailsLabel;
+      case NoteTypesAndHideConstants.bankNotes:
+        return l18n.strings.notePage.bankNotesDetailsLabel;
+      default:
+        return l18n.strings.notePage.generalNotesDetailsLabel;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      padding: const EdgeInsets.only(top: 10),
-      itemCount: notes.length,
-      separatorBuilder: (context, index) => const Divider(),
-      itemBuilder: (context, index) {
-        final note = notes[index];
-        return ListTile(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      note.title,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(height: 5),
-                    Text(
-                      controller.getDisplayText(note),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  deleteNoteIcon(
-                    note: note,
-                    noteController: controller,
-                    icon: Icons.cancel,
-                    iconColor: Colors.red,
-                    context: context,
-                  ),
-                ],
-              ),
-            ],
-          ),
-          onTap: () => goNoteDetails(note: note, context: context),
-        );
-      },
-    );
-  }
+    const int numColumns = 2;
 
-  Widget deleteNoteIcon({
-    required Note note,
-    required NoteListViewModel noteController,
-    required IconData icon,
-    required Color iconColor,
-    required BuildContext context,
-  }) {
-    return IconButton(
-      icon: Icon(icon, color: iconColor),
-      onPressed: () {
-        handleDeleteNote(
-            note: note, noteController: noteController, context: context);
-      },
+    final columns = controller.getNotesInColumns(notes, numColumns);
+
+    List<Widget> columnWidgets = [];
+
+    for (int colIndex = 0; colIndex < numColumns; colIndex++) {
+      if (colIndex > 0) {
+        columnWidgets.add(const SizedBox(width: 12));
+      }
+
+      columnWidgets.add(
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: columns[colIndex].map((note) {
+              final formattedDate =
+                  DateTimeUtil.formatDateNoteMenu(note.updatedAt);
+
+              return LayoutBuilder(
+                builder: (context, constraints) {
+                  return GestureDetector(
+                    onTap: () {
+                      goNoteDetails(note: note, context: context);
+                    },
+                    onLongPress: () {
+                      final renderBox = context.findRenderObject() as RenderBox;
+                      final itemOffset = renderBox.localToGlobal(Offset.zero);
+                      final renderBoxSize = renderBox.size;
+
+                      final screenHeight = MediaQuery.of(context).size.height;
+
+                      final menuPosition = controller.calculateMenuPosition(
+                        itemOffset: itemOffset,
+                        itemSize: renderBoxSize,
+                        screenHeight: screenHeight,
+                      );
+
+                      onShowMenu(note, menuPosition, renderBoxSize);
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(bottom: 12),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 12),
+                      decoration: BoxDecoration(
+                        color: note.backgroundColor,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(8)),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            note.title,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.start,
+                            style: const TextStyle(
+                              color: Color(0xFF292322),
+                              fontFamily: 'Roboto',
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            controller.getDisplayTextByNoteType(note),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.start,
+                            style: const TextStyle(
+                              color: Color(0xFF292322),
+                              fontFamily: 'Roboto',
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: Text(
+                              formattedDate,
+                              textAlign: TextAlign.end,
+                              style: const TextStyle(
+                                color: Color(0xFF79747E),
+                                fontFamily: 'Roboto',
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
+                          if (controller.noteTypeMode.value ==
+                              NoteTypesAndHideConstants.hiddenNotes) ...[
+                            const SizedBox(height: 4),
+                            Align(
+                              alignment: Alignment.bottomRight,
+                              child: Text(
+                                convertNoteTypeLabel(noteType: note.noteType),
+                                textAlign: TextAlign.end,
+                                style: const TextStyle(
+                                  color: Color(0xFF79747E),
+                                  fontFamily: 'Roboto',
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                          ]
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              );
+            }).toList(),
+          ),
+        ),
+      );
+    }
+
+    return SingleChildScrollView(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: columnWidgets,
+      ),
     );
   }
 }

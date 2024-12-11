@@ -1,8 +1,5 @@
 class AuthScreenStrings {
-  final String titleSignInLabel;
-  final String titleSignUpLabel;
   final String completeNameLabel;
-  final String emailLabel;
   final String passwordLabel;
   final String repeatPasswordLabel;
   final String signInButtonLabel;
@@ -12,10 +9,7 @@ class AuthScreenStrings {
   final String addUserToast;
 
   AuthScreenStrings(
-      {required this.titleSignInLabel,
-      required this.titleSignUpLabel,
-      required this.completeNameLabel,
-      required this.emailLabel,
+      {required this.completeNameLabel,
       required this.passwordLabel,
       required this.repeatPasswordLabel,
       required this.signInButtonLabel,

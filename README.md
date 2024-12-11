@@ -1,12 +1,12 @@
 # 📋 Project Flutter Target Note App
 
-* Data de Desenvolvimento/Ultima modificação : 18/09/2024
-
 * 👨‍💻 Desenvolvedor : Victor Vagner Perez
 
 * 🏅 Mentoria e Revisão: João Felipe Gonçalves (Desenvolvedor Mobile Especialista)
 
 * 🎨 Design UI: Gabriel Pole
+
+*  Data de Desenvolvimento/Ultima modificação : 11/12/2024
 
 # 
 
@@ -23,10 +23,9 @@ Nesse projeto em especifico, um projeto pequeno e sem muita complexidade, a util
 ### 🛠️ Armazenamento local com Get_Storage
 Solução de armazenamento leve e rápida que simplifica o armazenamento local de dados.
 
-### 🛠️ Gerenciamento de estado com Get it + Value Notifier
-Essa união nativa conta com uma das reatividades mais rápidas existentes no Flutter.
+### 🛠️ Gerenciamento de estado nativo com Value Notifier + Get_it 
 
-### 🛠️ Injeção de Dependência e Vinculação (Binding) com Get It
+### 🛠️ Inversão de Dependência e Vinculação (Binding) com Get_It
 
 ### 🛠️ Programação reativa com RxDart
 
@@ -39,13 +38,13 @@ Criptografia AES com preenchimento PKCS7 nos dados armazenados.
 
 ### 🛠️ Firebase Crashlytics
 Durante a execução do app, se ocorrer um erro não tratado, o Crashlytics registrará o erro. Isso inclui informações como a stack trace, mensagens de erro e outras informações customizadas. Através do uso de abstrações e injeção de dependências na implementação do crashlytics, o app consegue registrar e reportar erros de maneira eficaz e segregando por ambientes de execução.
-#### Crashlytics Mock
-É como uma versão de "brincadeira" do Crashlytics. Ele não envia dados para lugar nenhum, mas imprime mensagens e erros no console quando o app roda em debug mode, o que facilita encontrar e corrigir problemas durante o desenvolvimento.
 
 ### 🛠️ Firebase Analytics
 Registro de eventos no aplicativo.
 
 ### 🛠️ Push Notifications com Firebase Cloud Messaging
+
+### 🛠️ Deeplink - Android
 
 ### 🛠️ Serviço de tradução utilizando i18n
 
@@ -54,46 +53,80 @@ Registro de eventos no aplicativo.
 #
 
 # 3 - Telas
-### 1) Auth Page 🔒
+
+### 1) Splash Page 🖼️
+
+<img src="https://github.com/VictorPerez3/Flutter_Target_Note-MVVM_Clean_Arch_Firebase/blob/main/prints-doc/splash_screen.jpg" alt="Splash Screen" width="200"/>
+
+### 2) Sign In/Sign Up Page 🔒
 Pagina de autenticação, onde inclui:
-1. Login e criação de usuário.
+1. Login e Criação de usuário.
 2. Validação de campos: necessario para ativar o botão de autenticação.
 3. Firebase Authentication como API.
-4. Label "Política de privacidade" no rodapé da pagina. Se clicado, direciona para o navegador no site da Google.
 
-[//]: # (   ![splash screen_300x600]&#40;https://github.com/VictorPerez3/Project_Flutter_Target/blob/main/login_page.jpg&#41;)
+<img src="https://github.com/VictorPerez3/Flutter_Target_Note-MVVM_Clean_Arch_Firebase/blob/main/prints-doc/splash_screen.jpg" alt="Splash Screen" width="200"/>
 
-
-### 2) Note Page 📋
-A tela apresenta uma lista CRUD de notas, permitindo criação, edição e exclusão de notas.
+### 3) Note List Page 📋
+A tela apresenta uma lista CRUD de notas, com suas respectivas funcionalidades.
 1. As notas são divididas por usuário e tipo.
-2. Hasheamento de conteudo da nota dependendo do tipo de nota (contas pessoais e detalhes bancários).
+2. Hasheamento de conteudo dependendo do tipo de nota (Contas Pessoais, Notas Bancários e Notas Ocultas).
 3. Criptografia: Utilizando a lib encrypt, todas as notas são criptografadas no envio ao banco de dados (Firebase Realtime Database).
-4. Ações e Exception são sinalizadas através de uma SnackBar personalizada.
+4. Exceptions são sinalizadas através de SnackBar personalizada.
 
-[//]: # (   ![main3_727x600 &#40;3&#41;]&#40;https://github.com/VictorPerez3/Project_Flutter_Target/blob/main/dashboard_flutter.jpg&#41;)
+<img src="https://github.com/VictorPerez3/Flutter_Target_Note-MVVM_Clean_Arch_Firebase/blob/main/prints-doc/splash_screen.jpg" alt="Splash Screen" width="200"/>
 
+### 4) Note Details Page 🗒️
+A tela apresenta os detalhes com Criação e Edição de Nota : Titulo, conteudo, cor de fundo, alinhamento de texto do conteudo, etc.
+
+<img src="https://github.com/VictorPerez3/Flutter_Target_Note-MVVM_Clean_Arch_Firebase/blob/main/prints-doc/splash_screen.jpg" alt="Splash Screen" width="200"/>
 
 # 4 - Passos para clonar, configurar e executar o App 📜
-### 1) Clonando o repositório (Remoto -> Maquina Local) através do terminal:
+### 1) Clonando o repositório através do terminal
 
 ```
-git clone https://github.com/VictorPerez3/Project_Flutter_Target.git
+git clone -b main https://github.com/VictorPerez3/Flutter_Target_Note-MVVM_Clean_Arch_Firebase.git
 ```
 
-### 2) Siga para a raiz do projeto e execute o seguinte comando no terminal para obter as dependências necessárias:
+### 2) Configure a versão do flutter via fvm
+
+```
+fvm use 3.22.0
+```
+
+### 3) Baixe as dependências necessárias
 
 ```
 fvm flutter pub get 
 ```
 
-### 3) executar o projeto:
+### 4) Execute o projeto
 
 ```
 fvm flutter run
 ```
 
 # 5 - Testes Unitários ⛓️‍💥
-xxxxxxxxxxxxxx
 
+```
+fvm flutter test
+```
+
+# 6 - Deep Links Android 🛜
+Para acessar a tela requerida, utilize os comandos abaixo no terminal bash.
+- Sign In Screen:
+```
+adb shell am start -W -a android.intent.action.VIEW -d "https://victorperez3.github.io/Flutter_Target_Note-MVVM_Clean_Arch_Firebase/.well-known/auth/sign_in" com.example.flutter_project_target
+```
+- Sign Up Screen:
+```
+adb shell am start -W -a android.intent.action.VIEW -d "https://victorperez3.github.io/Flutter_Target_Note-MVVM_Clean_Arch_Firebase/.well-known/auth/sign_up" com.example.flutter_project_target
+```
+- Note List Screen:
+```
+adb shell am start -W -a android.intent.action.VIEW -d "https://victorperez3.github.io/Flutter_Target_Note-MVVM_Clean_Arch_Firebase/.well-known/note/list" com.example.flutter_project_target
+```
+- Note Details Screen:
+```
+adb shell am start -W -a android.intent.action.VIEW -d "https://victorperez3.github.io/Flutter_Target_Note-MVVM_Clean_Arch_Firebase/.well-known/note/details" com.example.flutter_project_target
+```
 

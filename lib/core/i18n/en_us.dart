@@ -10,10 +10,7 @@ class EnUsStringsTranslations implements StringsTranslations {
   static const String getLocale = 'en-US';
 
   final loginPage = AuthScreenStrings(
-    titleSignInLabel: 'Target Note',
-    titleSignUpLabel: 'Create \nAccount.',
     completeNameLabel: 'Name',
-    emailLabel: 'E-mail',
     passwordLabel: 'Password',
     repeatPasswordLabel: 'Repeat Password',
     signInButtonLabel: 'Sign In',
@@ -24,6 +21,8 @@ class EnUsStringsTranslations implements StringsTranslations {
   );
 
   final notePage = NoteScreenStrings(
+      titleUserInfoNameLabel: 'Hi, ',
+      titleScreenLabel: 'Your Notes',
       removeItemToast: 'Note removed',
       addItemToast: 'Note added',
       editItemToast: 'Note edited',
@@ -31,16 +30,25 @@ class EnUsStringsTranslations implements StringsTranslations {
       textLabelModal: 'Note Details',
       titleLabelModal: 'Title',
       noteTextLabelModal: 'Note Text',
+      createdAtLabel: 'Criado em ',
+      updatedAtLabel: 'Atualizado em ',
       saveButton: 'Save',
       cancelButton: 'Cancel',
-      notesButtonSegment: 'Notes',
+      generalNotesButtonSegment: 'General',
       bankNotesButtonSegment: 'Bank\nNotes',
-      personalAccountsButtonSegment: 'Personal\nAccounts');
+      personalAccountsButtonSegment: 'Personal\nAccounts',
+      hiddenNotesButtonSegment: 'Hidden\nNotes',
+      generalNotesDetailsLabel: '#General',
+      bankNotesDetailsLabel: '#BankNotes',
+      personalAccountsDetailsLabel: '#PersonalAccounts',
+      deleteMenuLabel: 'Delete',
+      duplicateMenuLabel: 'Duplicate',
+      hideMenuLabel: 'Hide',
+      unhideMenuLabel: 'Unhide');
 
   final general = GeneralStrings(
     sucessToast: 'Sucess!',
     privacyPolicyLabel: 'Privacy Policy',
-    privacyPolicyUrlLabel: 'https://www.google.com.br',
   );
 
   final validators = ValidatorsStrings(

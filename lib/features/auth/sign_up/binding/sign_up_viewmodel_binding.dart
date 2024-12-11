@@ -8,6 +8,8 @@ import '../../../../core/base/models/text_react_field_model.dart';
 import '../../../../core/resources/auth/dal/auth_repository.dart';
 import '../../../../core/resources/auth/dal/datasource/firebase_authentication/fb_authentication_datasource_interface.dart';
 import '../../../../core/resources/auth/domain/usecases/sign_up_usecase.dart';
+import '../../../../core/resources/note/dal/datasource/firebase_realtime_database/fb_database_provider.dart';
+import '../../../../core/resources/note/domain/usecases/save_user_info_name_usecase.dart';
 import '../presentation/sign_up_viewmodel.dart';
 import '../presentation/tag/sign_up_tag.dart';
 
@@ -28,6 +30,7 @@ class SignUpViewModelBinding {
 SignUpViewModel makeSignUpViewModel() {
   final storage = Inject.find<IStorage>();
   final authDatasource = Inject.find<IFbAuthDataSource>();
+  final firebaseDatabase = Inject.find<FbDatabaseProvider>();
 
   final authRepository = AuthRepository(
     storage: storage,
@@ -37,13 +40,16 @@ SignUpViewModel makeSignUpViewModel() {
   final signUpUsecase = SignUpUsecase(
       authRepository: authRepository, authDataSource: authDatasource);
 
+  final saveUserInfoNameUsecase = SaveUserInfoNameUsecase(
+      authRepository: authRepository, firebaseDatabase: firebaseDatabase);
+
   return SignUpViewModel(
-    completeNameField: makeCompleteNameField(),
-    usernameField: makeEmailSignUpField(),
-    passwordField: makePasswordSignUpField(),
-    repeatPasswordField: makeRepeatPasswordField(),
-    signUpUsecase: signUpUsecase,
-  );
+      completeNameField: makeCompleteNameField(),
+      usernameField: makeEmailSignUpField(),
+      passwordField: makePasswordSignUpField(),
+      repeatPasswordField: makeRepeatPasswordField(),
+      signUpUsecase: signUpUsecase,
+      saveUserInfoNameUsecase: saveUserInfoNameUsecase);
 }
 
 SignUpTag makeSignUpTag() {

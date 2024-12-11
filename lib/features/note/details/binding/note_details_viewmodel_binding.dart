@@ -38,13 +38,13 @@ NoteDetailsViewModel makeNoteDetailsViewModel() {
     authDataSource: authDatasource,
   );
 
-  final editNoteUsecase = EditNoteUsecase(
+  final editNoteUsecase = EditNoteUseCase(
       firebaseDatabase: firebaseDatabase, authRepository: authRepository);
 
-  final getNoteUsecase = GetNoteUsecase(
+  final getNoteUsecase = GetNoteByNoteIdUseCase(
       firebaseDatabase: firebaseDatabase, authRepository: authRepository);
 
-  final saveNoteUsecase = SaveNoteUsecase(
+  final saveNoteUsecase = SaveNoteUseCase(
       firebaseDatabase: firebaseDatabase, authRepository: authRepository);
 
   return NoteDetailsViewModel(

@@ -1,6 +1,6 @@
 import 'package:encrypt/encrypt.dart' as encrypt;
 import '../../../config.dart';
-import '../../resources/note/domain/exceptions/decrypt_fail.exception.dart';
+import '../../resources/note/domain/exceptions/decrypt_fail_exception.dart';
 import '../dal/data/error_data.dart';
 
 class EncryptionUtil {
@@ -15,10 +15,6 @@ class EncryptionUtil {
     return encrypted.base64;
   }
 
-  static List<String> encryptList(List<String> dataList) {
-    return dataList.map((data) => encryptData(data)).toList();
-  }
-
   static String decryptData(String encryptedData) {
     try {
       final decrypted = _encrypter.decrypt64(encryptedData, iv: _iv);
@@ -28,11 +24,5 @@ class EncryptionUtil {
         failure: ErrorData(message: e.toString(), id: 'decrypt_fail'),
       );
     }
-  }
-
-  static List<String> decryptList(List<String> encryptedList) {
-    return encryptedList
-        .map((encryptedData) => decryptData(encryptedData))
-        .toList();
   }
 }

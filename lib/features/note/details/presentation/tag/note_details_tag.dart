@@ -18,4 +18,16 @@ class NoteDetailsTag extends AnalyticsBase {
   Future<void> onEditNoteEvent(String label) async {
     sendEvent(event: AnalyticsEventsEnum.editNote, label: label);
   }
+
+  Future<void> onToggleBottomSheetEvent(String label) async {
+    sendEvent(event: AnalyticsEventsEnum.toggleBottomSheet, label: label);
+  }
+
+  Future<void> onChangeTextAlignNoteTextEvent(String label) async {
+    sendEvent(event: AnalyticsEventsEnum.changeTextAlignNoteText, label: label);
+  }
+
+  Future<void> onChangeBackgroundColorNoteEvent(String label) async {
+    sendEvent(event: AnalyticsEventsEnum.changeBackgroundColorNote, label: label);
+  }
 }
