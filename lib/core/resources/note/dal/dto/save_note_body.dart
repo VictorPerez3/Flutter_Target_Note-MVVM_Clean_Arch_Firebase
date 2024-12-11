@@ -9,9 +9,9 @@ part 'save_note_body.g.dart';
 
 @JsonSerializable()
 class SaveNoteBody extends Equatable {
+  final String noteType;
   final String title;
   final String noteText;
-  final List<String> hashtags;
   final DateTime updatedAt;
 
   @ColorConverter()
@@ -20,39 +20,37 @@ class SaveNoteBody extends Equatable {
   @TextAlignConverter()
   final TextAlign alignmentText;
 
+  final bool hide;
+
   SaveNoteBody({
     required String title,
     required String noteText,
-    required List<String> hashtags,
+    required this.noteType,
     required this.updatedAt,
     required this.backgroundColor,
     required this.alignmentText,
+    required this.hide,
   })  : title = title.trim(),
-        noteText = noteText.trim(),
-        hashtags = hashtags.map((tag) => tag.trim()).toList();
+        noteText = noteText.trim();
 
   factory SaveNoteBody.fromJson(Map<String, dynamic> json) =>
       _$SaveNoteBodyFromJson(json);
 
   Map<String, dynamic> toJson() => _$SaveNoteBodyToJson(this);
 
-  bool get isValid =>
-      _isTitleValid && _isNoteTextValid && _areHashtagsValid;
+  bool get isValid => _isTitleValid && _isNoteTextValid;
 
   bool get _isTitleValid => title.isNotEmpty;
 
   bool get _isNoteTextValid => noteText.isNotEmpty;
 
-  bool get _areHashtagsValid =>
-      hashtags.isNotEmpty && hashtags.every((tag) => tag.isNotEmpty);
-
   @override
   List<Object?> get props => [
-    title,
-    noteText,
-    hashtags,
-    updatedAt,
-    backgroundColor,
-    alignmentText,
-  ];
+        title,
+        noteText,
+        updatedAt,
+        backgroundColor,
+        alignmentText,
+        hide,
+      ];
 }

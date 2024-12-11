@@ -5,9 +5,10 @@ abstract class NoteMapper {
   static Note toModel(NoteData data) {
     return Note(
       id: data.id,
+      noteType: data.noteType,
       title: data.title,
       noteText: data.noteText,
-      hashtags: data.hashtags,
+      hide: data.hide,
       updatedAt: data.updatedAt,
       backgroundColor: data.backgroundColor,
       alignmentText: data.alignmentText,
@@ -17,9 +18,10 @@ abstract class NoteMapper {
   static Map<String, dynamic> toJson(Note model) {
     return {
       'id': model.id,
+      'noteType': model.noteType,
       'title': model.title,
       'noteText': model.noteText,
-      'hashtags': model.hashtags,
+      'hide': model.hide,
       'updatedAt': model.updatedAt,
       'backgroundColor': model.backgroundColor,
       'alignmentText': model.alignmentText

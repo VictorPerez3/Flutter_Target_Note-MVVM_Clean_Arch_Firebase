@@ -9,9 +9,10 @@ part 'note_data.g.dart';
 @JsonSerializable()
 class NoteData {
   final String id;
+  final String noteType;
   final String title;
   final String noteText;
-  final List<String> hashtags;
+  final bool hide;
   final DateTime updatedAt;
 
   @ColorConverter()
@@ -22,9 +23,10 @@ class NoteData {
 
   NoteData({
     required this.id,
+    required this.noteType,
     required this.title,
     required this.noteText,
-    required this.hashtags,
+    required this.hide,
     required this.updatedAt,
     required this.backgroundColor,
     required this.alignmentText,
