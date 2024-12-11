@@ -97,7 +97,7 @@ class Initializer {
       if (currentLocale != null) {
         i18n = getCurrentI18n(currentLocale);
       } else {
-        i18n = EnUsStringsTranslations();
+        i18n = PtBrStringsTranslations();
       }
     }
 

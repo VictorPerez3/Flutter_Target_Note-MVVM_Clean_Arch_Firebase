@@ -21,6 +21,8 @@ class EnUsStringsTranslations implements StringsTranslations {
   );
 
   final notePage = NoteScreenStrings(
+      titleUserInfoNameLabel: 'Hi, ',
+      titleScreenLabel: 'Your Notes',
       removeItemToast: 'Note removed',
       addItemToast: 'Note added',
       editItemToast: 'Note edited',
@@ -28,11 +30,21 @@ class EnUsStringsTranslations implements StringsTranslations {
       textLabelModal: 'Note Details',
       titleLabelModal: 'Title',
       noteTextLabelModal: 'Note Text',
+      createdAtLabel: 'Criado em ',
+      updatedAtLabel: 'Atualizado em ',
       saveButton: 'Save',
       cancelButton: 'Cancel',
-      notesButtonSegment: 'Notes',
+      generalNotesButtonSegment: 'General',
       bankNotesButtonSegment: 'Bank\nNotes',
-      personalAccountsButtonSegment: 'Personal\nAccounts');
+      personalAccountsButtonSegment: 'Personal\nAccounts',
+      hiddenNotesButtonSegment: 'Hidden\nNotes',
+      generalNotesDetailsLabel: '#General',
+      bankNotesDetailsLabel: '#BankNotes',
+      personalAccountsDetailsLabel: '#PersonalAccounts',
+      deleteMenuLabel: 'Delete',
+      duplicateMenuLabel: 'Duplicate',
+      hideMenuLabel: 'Hide',
+      unhideMenuLabel: 'Unhide');
 
   final general = GeneralStrings(
     sucessToast: 'Sucess!',
