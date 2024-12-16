@@ -51,9 +51,7 @@ Durante a execução do app, se ocorrer um erro não tratado, o Crashlytics regi
 
 # 3 - Telas
 
-### 1) Splash Page 🖼️
-
-### 2) Sign In/Sign Up Page 🔒
+### 1) Sign In/Sign Up Page 🔒
 Pagina de autenticação, onde inclui:
 1. Login e Criação de usuário.
 2. Validação de campos: necessario para ativar o botão de autenticação.
@@ -64,7 +62,7 @@ Pagina de autenticação, onde inclui:
   <img src="https://github.com/VictorPerez3/Flutter_Target_Note-MVVM_Clean_Arch_Firebase/blob/develop/assets/images/documentation/doc-sign-up.jpg" alt="Sign Up Screen" width="200"/>
 </div>
 
-### 3) Note List Page 📋
+### 2) Note List Page 📋
 A tela apresenta uma lista CRUD de notas, com suas respectivas funcionalidades.
 1. As notas são divididas por usuário e tipo.
 2. Hasheamento de conteudo dependendo do tipo de nota (Contas Pessoais, Notas Bancários e Notas Ocultas).
@@ -77,7 +75,7 @@ A tela apresenta uma lista CRUD de notas, com suas respectivas funcionalidades.
   <img src="https://github.com/VictorPerez3/Flutter_Target_Note-MVVM_Clean_Arch_Firebase/blob/develop/assets/images/documentation/doc-notas-ocultas-list.jpg" alt="Hidden Note - Note List Screen" width="200"/>
 </div>
 
-### 4) Note Details Page 🗒️
+### 3) Note Details Page 🗒️
 A tela apresenta os detalhes com Criação e Edição de Nota : Titulo, conteudo, cor de fundo, alinhamento de texto do conteudo, etc.
 
 <div style="display: flex; gap: 10px;">
