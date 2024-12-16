@@ -38,6 +38,7 @@ dev_dependencies:
   json_serializable: ^6.7.1
   mockito: ^5.0.0
   flutter_lints: ^3.0.1
+  flutter_launcher_icons: ^0.14.2
 
 flutter:
   uses-material-design: true
@@ -50,4 +51,10 @@ flutter:
       fonts:
         - asset: assets/fonts/Vibur-Regular.ttf
 
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icons/app_icon.png"
+  adaptive_icon_background: "#000000" # Fundo preto para o ícone adaptativo
+  adaptive_icon_foreground: "assets/icons/app_icon.png" # Mesmo ícone como foreground
 
