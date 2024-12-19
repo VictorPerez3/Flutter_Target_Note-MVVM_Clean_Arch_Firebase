@@ -12,14 +12,14 @@ class SignUpViewModel extends IViewModel with l18nMixin {
   final SignUpUsecase _signUpUsecase;
   final SaveUserInfoNameUsecase saveUserInfoNameUsecase;
   final IField<String> completeNameField;
-  final IField<String> usernameField;
+  final IField<String> emailField;
   final IField<String> passwordField;
   final IField<String> repeatPasswordField;
   final enableSignUpButton = ValueNotifier<bool>(false);
 
   SignUpViewModel({
     required this.completeNameField,
-    required this.usernameField,
+    required this.emailField,
     required this.passwordField,
     required this.repeatPasswordField,
     required this.saveUserInfoNameUsecase,
@@ -30,7 +30,7 @@ class SignUpViewModel extends IViewModel with l18nMixin {
 
   void _setupReactionsSignUp() {
     completeNameField.valueNotifier.addListener(_updateSignUpButtonState);
-    usernameField.valueNotifier.addListener(_updateSignUpButtonState);
+    emailField.valueNotifier.addListener(_updateSignUpButtonState);
     passwordField.valueNotifier.addListener(_updateSignUpButtonState);
     repeatPasswordField.valueNotifier.addListener(_updateSignUpButtonState);
   }
@@ -53,7 +53,7 @@ class SignUpViewModel extends IViewModel with l18nMixin {
       }
 
       final userId = await _signUpUsecase.signUp(
-        email: usernameField.valueNotifier.value!,
+        email: emailField.valueNotifier.value!,
         password: passwordField.valueNotifier.value!,
       );
 
@@ -68,11 +68,11 @@ class SignUpViewModel extends IViewModel with l18nMixin {
 
   bool get _validateFieldsSignUp {
     completeNameField.validate();
-    usernameField.validate();
+    emailField.validate();
     passwordField.validate();
     repeatPasswordField.validate();
     return !completeNameField.hasError &&
-        !usernameField.hasError &&
+        !emailField.hasError &&
         !passwordField.hasError &&
         !repeatPasswordField.hasError;
   }
@@ -80,7 +80,7 @@ class SignUpViewModel extends IViewModel with l18nMixin {
   @override
   void dispose() {
     completeNameField.dispose();
-    usernameField.dispose();
+    emailField.dispose();
     passwordField.dispose();
     repeatPasswordField.dispose();
   }
