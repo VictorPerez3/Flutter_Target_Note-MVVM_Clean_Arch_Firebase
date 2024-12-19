@@ -1,26 +1,39 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../core/base/mixins/analytics_mixin.dart';
 import '../../../../core/resources/note/domain/constants/note_screen_constants.dart';
-import '../../../note/details/presentation/note_details_viewmodel.dart';
 import '../../../note/details/presentation/tag/note_details_tag.dart';
 
 class BottomSheetWidget extends StatelessWidget
     with AnalyticsMixin<NoteDetailsTag> {
-  final NoteDetailsViewModel viewModel;
   final bool isKeyboardVisible;
+
+  final ValueListenable<bool> isBottomSheetMinimized;
+  final VoidCallback onToggleBottomSheet;
+
+  final ValueListenable<Color> selectedColor;
+  final Function(Color) onChangeBackgroundColor;
+
+  final ValueListenable<TextAlign> selectedTextAlign;
+  final Function(TextAlign) onChangeTextAlign;
 
   const BottomSheetWidget({
     super.key,
-    required this.viewModel,
     required this.isKeyboardVisible,
+    required this.isBottomSheetMinimized,
+    required this.onToggleBottomSheet,
+    required this.selectedColor,
+    required this.onChangeBackgroundColor,
+    required this.selectedTextAlign,
+    required this.onChangeTextAlign,
   });
 
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
-      valueListenable: viewModel.isBottomSheetMinimized,
+      valueListenable: isBottomSheetMinimized,
       builder: (context, isMinimized, child) {
         return Container(
           decoration: const ShapeDecoration(
@@ -41,7 +54,7 @@ class BottomSheetWidget extends StatelessWidget
                 child: GestureDetector(
                   onTap: () {
                     tag.onToggleBottomSheetEvent('Toggle Bottom Sheet');
-                    viewModel.toggleBottomSheet();
+                    onToggleBottomSheet();
                   },
                   behavior: HitTestBehavior.translucent,
                   child: Container(
@@ -129,8 +142,8 @@ class BottomSheetWidget extends StatelessWidget
 
   Widget _buttonColorCircle(Color color) {
     return ValueListenableBuilder<Color>(
-      valueListenable: viewModel.selectedColor,
-      builder: (context, selectedColor, child) {
+      valueListenable: selectedColor,
+      builder: (context, currentSelectedColor, child) {
         return Material(
           elevation: 4.0,
           shape: const CircleBorder(),
@@ -139,7 +152,7 @@ class BottomSheetWidget extends StatelessWidget
             onTap: () {
               tag.onChangeBackgroundColorNoteEvent(
                   'Change Background Color Note');
-              viewModel.changeBackgroundColor(color);
+              onChangeBackgroundColor(color);
             },
             customBorder: const CircleBorder(),
             splashColor: Colors.white12,
@@ -152,8 +165,9 @@ class BottomSheetWidget extends StatelessWidget
                 color: color,
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: selectedColor == color ? Colors.blue : Colors.grey,
-                  width: selectedColor == color ? 2.0 : 1.0,
+                  color:
+                      currentSelectedColor == color ? Colors.blue : Colors.grey,
+                  width: currentSelectedColor == color ? 2.0 : 1.0,
                 ),
               ),
             ),
@@ -165,20 +179,21 @@ class BottomSheetWidget extends StatelessWidget
 
   Widget _buttonAlignmentIcon(String assetPath, TextAlign align) {
     return ValueListenableBuilder<TextAlign>(
-      valueListenable: viewModel.selectedTextAlign,
-      builder: (context, selectedAlign, child) {
+      valueListenable: selectedTextAlign,
+      builder: (context, currentSelectedAlign, child) {
         return InkWell(
           onTap: () {
             tag.onChangeTextAlignNoteTextEvent('Change Note Text Align');
-            viewModel.changeTextAlign(align);
+            onChangeTextAlign(align);
           },
           child: Container(
             padding: const EdgeInsets.all(4.0),
             decoration: BoxDecoration(
               border: Border.all(
-                color:
-                    selectedAlign == align ? Colors.blue : Colors.transparent,
-                width: selectedAlign == align ? 2.0 : 0,
+                color: currentSelectedAlign == align
+                    ? Colors.blue
+                    : Colors.transparent,
+                width: currentSelectedAlign == align ? 2.0 : 0,
               ),
               borderRadius: BorderRadius.circular(4.0),
             ),

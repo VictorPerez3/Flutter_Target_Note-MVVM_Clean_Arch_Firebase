@@ -3,20 +3,32 @@ import '../../../../core/base/mixins/l18n_mixin.dart';
 import '../../../../core/base/utils/date_time_util.dart';
 import '../../../../core/resources/note/domain/constants/note_types_and_hide_constants.dart';
 import '../../../../core/resources/note/domain/entities/note_entity.dart';
-import '../../../note/list/presentation/note_list_viewmodel.dart';
 
 class NoteList extends StatelessWidget with l18nMixin {
   final List<Note> notes;
-  final NoteListViewModel controller;
+
+  final String noteTypeMode;
+
   final Function({Note? note, required BuildContext context}) goNoteDetails;
   final void Function(Note note, Offset globalPosition, Size size) onShowMenu;
+  final List<List<Note>> Function(List<Note> notes, int numColumns)
+      getNotesInColumns;
+  final String Function(Note note) getDisplayTextByNoteType;
+  final Offset Function({
+    required Offset itemOffset,
+    required Size itemSize,
+    required double screenHeight,
+  }) calculateMenuPosition;
 
   const NoteList({
     super.key,
     required this.notes,
-    required this.controller,
     required this.goNoteDetails,
     required this.onShowMenu,
+    required this.getNotesInColumns,
+    required this.getDisplayTextByNoteType,
+    required this.calculateMenuPosition,
+    required this.noteTypeMode,
   });
 
   String convertNoteTypeLabel({required String noteType}) {
@@ -36,7 +48,7 @@ class NoteList extends StatelessWidget with l18nMixin {
   Widget build(BuildContext context) {
     const int numColumns = 2;
 
-    final columns = controller.getNotesInColumns(notes, numColumns);
+    final columns = getNotesInColumns(notes, numColumns);
 
     List<Widget> columnWidgets = [];
 
@@ -66,7 +78,7 @@ class NoteList extends StatelessWidget with l18nMixin {
 
                       final screenHeight = MediaQuery.of(context).size.height;
 
-                      final menuPosition = controller.calculateMenuPosition(
+                      final menuPosition = calculateMenuPosition(
                         itemOffset: itemOffset,
                         itemSize: renderBoxSize,
                         screenHeight: screenHeight,
@@ -101,7 +113,7 @@ class NoteList extends StatelessWidget with l18nMixin {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            controller.getDisplayTextByNoteType(note),
+                            getDisplayTextByNoteType(note),
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.start,
@@ -126,7 +138,7 @@ class NoteList extends StatelessWidget with l18nMixin {
                               ),
                             ),
                           ),
-                          if (controller.noteTypeMode.value ==
+                          if (noteTypeMode ==
                               NoteTypesAndHideConstants.hiddenNotes) ...[
                             const SizedBox(height: 4),
                             Align(

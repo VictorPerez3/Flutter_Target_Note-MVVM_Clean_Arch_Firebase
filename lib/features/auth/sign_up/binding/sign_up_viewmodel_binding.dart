@@ -45,7 +45,7 @@ SignUpViewModel makeSignUpViewModel() {
 
   return SignUpViewModel(
       completeNameField: makeCompleteNameField(),
-      usernameField: makeEmailSignUpField(),
+      emailField: makeEmailSignUpField(),
       passwordField: makePasswordSignUpField(),
       repeatPasswordField: makeRepeatPasswordField(),
       signUpUsecase: signUpUsecase,

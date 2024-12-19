@@ -154,7 +154,21 @@ class NoteListScreen extends StatelessWidget
                                 builder: (context, notes, child) {
                                   return NoteList(
                                     notes: notes,
-                                    controller: viewModel,
+                                    getNotesInColumns:
+                                        viewModel.getNotesInColumns,
+                                    getDisplayTextByNoteType:
+                                        viewModel.getDisplayTextByNoteType,
+                                    calculateMenuPosition: (
+                                        {required itemOffset,
+                                        required itemSize,
+                                        required screenHeight}) {
+                                      return viewModel.calculateMenuPosition(
+                                        itemOffset: itemOffset,
+                                        itemSize: itemSize,
+                                        screenHeight: screenHeight,
+                                      );
+                                    },
+                                    noteTypeMode: viewModel.noteTypeMode.value,
                                     goNoteDetails: _goNoteDetails,
                                     onShowMenu: (Note note, Offset globalPos,
                                         Size size) {
