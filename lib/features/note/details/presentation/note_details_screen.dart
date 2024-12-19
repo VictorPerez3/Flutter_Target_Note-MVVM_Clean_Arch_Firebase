@@ -131,7 +131,7 @@ class NoteDetailsScreen extends StatelessWidget
                                         maxLines: 2,
                                         maxLength: 40,
                                         style: const TextStyle(
-                                          color: Color(0xFF79747E),
+                                          color: Color(0xFF49454F),
                                           fontSize: 32,
                                           fontWeight: FontWeight.w400,
                                         ),
@@ -153,7 +153,7 @@ class NoteDetailsScreen extends StatelessWidget
                                         : '${l18n.strings.notePage.updatedAtLabel} ${DateTimeUtil.formatDateNoteDetails(note!.updatedAt)}',
                                     maxLines: 1,
                                     style: const TextStyle(
-                                      color: Color(0xFF79747E),
+                                      color: Color(0xFF49454F),
                                       fontSize: 14,
                                       fontWeight: FontWeight.w300,
                                     ),
@@ -173,7 +173,7 @@ class NoteDetailsScreen extends StatelessWidget
                                             onChanged: viewModel
                                                 .noteTextField.onChange,
                                             style: const TextStyle(
-                                              color: Color(0xFF79747E),
+                                              color: Color(0xFF49454F),
                                               fontSize: 20,
                                               fontWeight: FontWeight.w400,
                                             ),
@@ -206,8 +206,13 @@ class NoteDetailsScreen extends StatelessWidget
                         left: 0,
                         right: 0,
                         child: BottomSheetWidget(
-                          viewModel: viewModel,
                           isKeyboardVisible: isKeyboardVisible,
+                          isBottomSheetMinimized: viewModel.isBottomSheetMinimized,
+                          onToggleBottomSheet: viewModel.toggleBottomSheet,
+                          selectedColor: viewModel.selectedColor,
+                          onChangeBackgroundColor: viewModel.changeBackgroundColor,
+                          selectedTextAlign: viewModel.selectedTextAlign,
+                          onChangeTextAlign: viewModel.changeTextAlign,
                         ),
                       ),
                   ],
